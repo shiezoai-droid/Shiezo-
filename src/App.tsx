@@ -22,37 +22,44 @@ const FadeInSection = ({ children, className = "" }: { children: ReactNode; clas
 };
 
 const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
-  const [scene, setScene] = useState(0); // 0: Entry, 1: Hold, 2: Transition, 3: Reveal
   const [activeWordIndex, setActiveWordIndex] = useState(-1);
-  const [crackedWordIndex, setCrackedWordIndex] = useState(-1);
+  const [breakingWordIndex, setBreakingWordIndex] = useState(-1);
+  const [showFinalText, setShowFinalText] = useState(false);
+  const [showBrand, setShowBrand] = useState(false);
 
   const words = ["DEPRESSION", "OVERTHINKING", "STUDY", "DELIVERY"];
 
   useEffect(() => {
-    // Scene 1: Liquid Entry (One by one)
     let timer = 0;
+
+    // SCENE 1: Word Entry (Step-by-step)
     words.forEach((_, i) => {
       setTimeout(() => setActiveWordIndex(i), timer);
-      timer += 700; 
+      timer += 900; // 0.6s entry + 0.3s gap
     });
 
-    // Scene 2: Hold
-    setTimeout(() => setScene(1), timer + 300);
-    timer += 1000;
+    // SCENE 2: Ready State
+    timer += 800; // Hold for 0.8s
 
-    // Scene 3: Crack (One by one)
+    // SCENE 3: Break from top to bottom
     words.forEach((_, i) => {
-      setTimeout(() => setCrackedWordIndex(i), timer);
-      timer += 600;
+      setTimeout(() => setBreakingWordIndex(i), timer);
+      timer += 450; // Delay between breaks: 0.45s
     });
 
-    // Scene 4: "I didn't stop."
-    setTimeout(() => setScene(2), timer + 400);
-    timer += 1800;
+    // SCENE 4: Empty Moment
+    timer += 500; // Short pause
 
-    // Scene 5: Brand Reveal
-    setTimeout(() => setScene(3), timer);
-    timer += 2500;
+    // SCENE 5: Next Text
+    setTimeout(() => setShowFinalText(true), timer);
+    timer += 2200;
+
+    // SCENE 6: Brand Reveal
+    setTimeout(() => {
+      setShowFinalText(false);
+      setShowBrand(true);
+    }, timer);
+    timer += 3000;
 
     // Exit
     setTimeout(() => onComplete(), timer + 500);
@@ -64,74 +71,82 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
       transition={{ duration: 1.5, ease: "easeInOut" }}
       className="fixed inset-0 z-[200] bg-black flex items-center justify-center overflow-hidden select-none px-6"
     >
-      {/* Background Subtle Vibration (Alive Feel) */}
-      <motion.div 
-        animate={scene === 1 ? { x: [-1, 1, -1], y: [1, -1, 1] } : {}}
-        transition={{ duration: 0.1, repeat: Infinity }}
-        className="absolute inset-0 pointer-events-none"
-      />
+      {/* Background Glow Burst on Break */}
+      <AnimatePresence>
+        {breakingWordIndex >= 0 && breakingWordIndex < words.length && (
+          <motion.div
+            key={breakingWordIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.15, 0] }}
+            transition={{ duration: 0.6 }}
+            className="absolute inset-0 bg-accent/20 blur-[100px] pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
 
-      {/* Scene 1, 2, 3: The 4 Words Grid */}
-      {scene < 2 && (
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:gap-x-20 md:gap-y-24 max-w-sm md:max-w-2xl w-full">
+      {/* Words Grid */}
+      {!showFinalText && !showBrand && (
+        <div className="grid grid-cols-1 gap-y-10 md:gap-y-16 max-w-sm md:max-w-2xl w-full">
           {words.map((word, i) => (
             <div key={i} className="relative flex items-center justify-center">
               <AnimatePresence>
                 {activeWordIndex >= i && (
                   <motion.div
-                    initial={{ scale: 0, opacity: 0, filter: "blur(10px)" }}
-                    animate={{ 
-                      scale: [0, 1.15, 1], 
-                      opacity: 1, 
-                      filter: "blur(0px)",
-                      x: crackedWordIndex >= i ? [0, -2, 2, -2, 0] : 0
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] },
-                      opacity: { duration: 0.5 },
-                      filter: { duration: 0.8 },
-                      x: { duration: 0.2 }
-                    }}
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={
+                      breakingWordIndex >= i
+                        ? { 
+                            scale: 1.1,
+                            opacity: 0,
+                            filter: "blur(20px)",
+                            x: [0, -2, 2, -2, 0],
+                          }
+                        : { 
+                            scale: [0.8, 1.08, 1],
+                            opacity: 1,
+                            filter: "blur(0px)",
+                            textShadow: [
+                              "0 0 10px rgba(255, 45, 45, 0.4)",
+                              "0 0 20px rgba(255, 45, 45, 0.6)",
+                              "0 0 10px rgba(255, 45, 45, 0.4)"
+                            ]
+                          }
+                    }
+                    transition={
+                      breakingWordIndex >= i
+                        ? { duration: 0.8, ease: "easeInOut" }
+                        : activeWordIndex === i 
+                          ? { 
+                              scale: { duration: 0.6, times: [0, 0.7, 1], ease: "easeOut" },
+                              opacity: { duration: 0.6 },
+                              textShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                            }
+                          : { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                    }
                     className="relative"
                   >
-                    {/* Liquid Ripple Effect (Pulse after landing) */}
-                    <motion.div
-                      animate={{ 
-                        scale: [1, 1.05, 1],
-                        opacity: [0.5, 0.8, 0.5],
-                        textShadow: [
-                          "0 0 15px rgba(255, 45, 45, 0.6)",
-                          "0 0 30px rgba(255, 45, 45, 0.9)",
-                          "0 0 15px rgba(255, 45, 45, 0.6)"
-                        ]
-                      }}
-                      transition={{ 
-                        duration: 2, 
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                      className="text-white font-display font-bold text-xl md:text-5xl tracking-widest text-center"
-                    >
+                    <div className="text-white font-display font-bold text-2xl md:text-6xl tracking-[0.3em] text-center">
                       {word}
-                    </motion.div>
+                    </div>
 
                     {/* Crack Effect Overlay */}
-                    {crackedWordIndex >= i && (
+                    {breakingWordIndex === i && (
                       <motion.div 
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        animate={{ opacity: [0, 1, 0] }}
+                        transition={{ duration: 0.4 }}
                         className="absolute inset-0 pointer-events-none flex items-center justify-center"
                       >
                         <svg viewBox="0 0 100 40" className="w-full h-full overflow-visible">
                           <motion.path
                             d="M 10 20 L 30 15 L 50 25 L 70 10 L 90 20"
                             stroke="#FF2D2D"
-                            strokeWidth="1.5"
+                            strokeWidth="2"
                             fill="none"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="drop-shadow-[0_0_8px_rgba(255,45,45,1)]"
+                            transition={{ duration: 0.3 }}
+                            className="drop-shadow-[0_0_10px_rgba(255,45,45,1)]"
                           />
                         </svg>
                       </motion.div>
@@ -144,61 +159,66 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
         </div>
       )}
 
-      {/* Scene 4: "I didn't stop." */}
-      {scene === 2 && (
-        <motion.div
-          initial={{ y: 60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center"
-        >
-          <h2 className="text-3xl md:text-6xl font-display font-bold tracking-tighter text-white drop-shadow-[0_0_20px_rgba(255,45,45,0.4)]">
-            “I didn’t stop.”
-          </h2>
-        </motion.div>
-      )}
+      {/* Scene 5: "I DIDN'T STOP." */}
+      <AnimatePresence>
+        {showFinalText && (
+          <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="text-center"
+          >
+            <h2 className="text-4xl md:text-7xl font-display font-bold tracking-tighter text-white drop-shadow-[0_0_25px_rgba(255,45,45,0.5)]">
+              I DIDN’T STOP.
+            </h2>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Scene 5: Brand Reveal */}
-      {scene === 3 && (
-        <div className="flex flex-col items-center justify-center text-center">
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-10"
-          >
-            <h1 className="text-6xl md:text-9xl font-display font-bold tracking-tighter text-white relative">
-              SHIEZO AI
-              <motion.div 
-                animate={{ opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="absolute inset-0 blur-2xl bg-accent/20 -z-10 rounded-full"
-              />
-            </h1>
-            <motion.div 
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="mt-2 text-accent font-display text-sm md:text-lg tracking-[0.5em] font-medium"
+      {/* Scene 6: Brand Reveal */}
+      <AnimatePresence>
+        {showBrand && (
+          <div className="flex flex-col items-center justify-center text-center">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-10"
             >
-              SMART SELLING WITH AI
+              <h1 className="text-7xl md:text-9xl font-display font-bold tracking-tighter text-white relative">
+                SHIEZO AI
+                <motion.div 
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute inset-0 blur-3xl bg-accent/20 -z-10 rounded-full"
+                />
+              </h1>
+              <motion.div 
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="mt-2 text-accent font-display text-sm md:text-xl tracking-[0.5em] font-medium"
+              >
+                SMART SELLING WITH AI
+              </motion.div>
             </motion.div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 1 }}
-            className="relative"
-          >
-            <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">Founder Identity</p>
-            <h3 className="text-xl md:text-2xl font-display font-bold tracking-tight text-white/90">~SHIVAM</h3>
-            <p className="text-white/30 text-[8px] md:text-[10px] tracking-[0.2em] uppercase max-w-[250px] mx-auto leading-relaxed mt-1">
-              AI EXPERT, DEVELOPER, FOUNDER, ENTREPRENEUR
-            </p>
-            <div className="absolute -inset-4 bg-accent/5 blur-xl -z-10 rounded-full" />
-          </motion.div>
-        </div>
-      )}
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 1 }}
+              className="relative"
+            >
+              <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">Founder Identity</p>
+              <h3 className="text-2xl md:text-3xl font-display font-bold tracking-tight text-white/90">~SHIVAM</h3>
+              <p className="text-white/30 text-[8px] md:text-[10px] tracking-[0.2em] uppercase max-w-[250px] mx-auto leading-relaxed mt-1">
+                AI EXPERT, DEVELOPER, FOUNDER, ENTREPRENEUR
+              </p>
+              <div className="absolute -inset-4 bg-accent/5 blur-xl -z-10 rounded-full" />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
