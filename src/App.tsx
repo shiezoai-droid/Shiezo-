@@ -254,7 +254,6 @@ export default function App() {
   const [selectedFeature, setSelectedFeature] = useState<{ title: string; desc: string } | null>(null);
   const [logoError, setLogoError] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
-  const [showLinkedInToast, setShowLinkedInToast] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -754,11 +753,7 @@ export default function App() {
               { 
                 icon: <Linkedin className="w-3.5 h-3.5" />, 
                 label: "LinkedIn",
-                onClick: (e: MouseEvent) => {
-                  e.preventDefault();
-                  setShowLinkedInToast(true);
-                  setTimeout(() => setShowLinkedInToast(false), 2000);
-                }
+                href: "https://www.linkedin.com/in/shivam-1ab814403?utm_source=share_via&utm_content=profile&utm_medium=member_android"
               },
               { 
                 icon: <Instagram className="w-3.5 h-3.5" />, 
@@ -776,7 +771,6 @@ export default function App() {
                 href={social.href || "#"}
                 target={social.href ? "_blank" : undefined}
                 rel={social.href ? "noopener noreferrer" : undefined}
-                onClick={social.onClick}
                 initial={{ opacity: 0, scale: 0.8, y: 5 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -791,23 +785,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* LINKEDIN TOAST */}
-      <AnimatePresence>
-        {showLinkedInToast && (
-          <motion.div
-            initial={{ y: 100, opacity: 0, x: "-50%" }}
-            animate={{ y: -40, opacity: 1, x: "-50%" }}
-            exit={{ y: 100, opacity: 0, x: "-50%" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed bottom-0 left-1/2 z-[300] bg-[#111111] px-6 py-2.5 rounded-full border border-accent/20 shadow-[0_0_20px_rgba(255,45,45,0.2)]"
-          >
-            <span className="text-white font-display font-bold text-sm tracking-wide drop-shadow-[0_0_8px_rgba(255,45,45,0.5)]">
-              Coming Soon
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* FEATURE POPUP */}
       <AnimatePresence>
