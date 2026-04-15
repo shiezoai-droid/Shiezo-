@@ -4,7 +4,7 @@
  */
 
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { Menu, Zap, Truck, BookOpen, Lightbulb, Rocket, ChevronRight, CloudUpload, Brain, Linkedin, Instagram, Facebook } from "lucide-react";
+import { Menu, Zap, Truck, BookOpen, Lightbulb, Rocket, ChevronRight, CloudUpload, Brain, Linkedin, Instagram, Facebook, Mail } from "lucide-react";
 import { useRef, useState, useEffect, ReactNode, MouseEvent } from "react";
 
 const FadeInSection = ({ children, className = "" }: { children: ReactNode; className?: string }) => {
@@ -32,23 +32,23 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
     let timer = 0;
 
-    // SCENE 1: Word Entry (Step-by-step)
+    // SCENE 1: Word Entry
     words.forEach((_, i) => {
       setTimeout(() => setActiveWordIndex(i), timer);
-      timer += 900; // 0.6s entry + 0.3s gap
+      timer += 900;
     });
 
     // SCENE 2: Ready State
-    timer += 800; // Hold for 0.8s
+    timer += 800;
 
-    // SCENE 3: Break from top to bottom
+    // SCENE 3: Break sequentially
     words.forEach((_, i) => {
       setTimeout(() => setBreakingWordIndex(i), timer);
-      timer += 450; // Delay between breaks: 0.45s
+      timer += 400;
     });
 
     // SCENE 4: Empty Moment
-    timer += 500; // Short pause
+    timer += 500;
 
     // SCENE 5: Next Text
     setTimeout(() => setShowFinalText(true), timer);
@@ -71,53 +71,51 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
       transition={{ duration: 1.5, ease: "easeInOut" }}
       className="fixed inset-0 z-[200] bg-black flex items-center justify-center overflow-hidden select-none px-6"
     >
-      {/* Background Glow Burst on Break */}
       <AnimatePresence>
         {breakingWordIndex >= 0 && breakingWordIndex < words.length && (
           <motion.div
             key={breakingWordIndex}
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.15, 0] }}
-            transition={{ duration: 0.6 }}
-            className="absolute inset-0 bg-accent/20 blur-[100px] pointer-events-none"
+            animate={{ opacity: [0, 0.1, 0] }}
+            transition={{ duration: 0.5 }}
+            className="absolute inset-0 bg-accent/15 blur-[80px] pointer-events-none"
           />
         )}
       </AnimatePresence>
 
-      {/* Words Grid */}
       {!showFinalText && !showBrand && (
-        <div className="grid grid-cols-1 gap-y-10 md:gap-y-16 max-w-sm md:max-w-2xl w-full">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:gap-x-12 md:gap-y-16 max-w-xs md:max-w-2xl w-full">
           {words.map((word, i) => (
             <div key={i} className="relative flex items-center justify-center">
               <AnimatePresence>
                 {activeWordIndex >= i && (
                   <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
+                    initial={{ scale: 0.95, opacity: 0 }}
                     animate={
                       breakingWordIndex >= i
                         ? { 
                             scale: 1.1,
                             opacity: 0,
                             filter: "blur(20px)",
-                            x: [0, -2, 2, -2, 0],
+                            x: [0, -1, 1, -1, 0],
                           }
                         : { 
-                            scale: [0.8, 1.08, 1],
+                            scale: [0.95, 1.05, 1],
                             opacity: 1,
                             filter: "blur(0px)",
                             textShadow: [
+                              "0 0 5px rgba(255, 45, 45, 0.2)",
                               "0 0 10px rgba(255, 45, 45, 0.4)",
-                              "0 0 20px rgba(255, 45, 45, 0.6)",
-                              "0 0 10px rgba(255, 45, 45, 0.4)"
+                              "0 0 5px rgba(255, 45, 45, 0.2)"
                             ]
                           }
                     }
                     transition={
                       breakingWordIndex >= i
-                        ? { duration: 0.8, ease: "easeInOut" }
+                        ? { duration: 0.7, ease: "easeInOut" }
                         : activeWordIndex === i 
                           ? { 
-                              scale: { duration: 0.6, times: [0, 0.7, 1], ease: "easeOut" },
+                              scale: { duration: 0.2, times: [0, 0.7, 1], ease: "easeOut" },
                               opacity: { duration: 0.6 },
                               textShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" }
                             }
@@ -125,28 +123,27 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
                     }
                     className="relative"
                   >
-                    <div className="text-white font-display font-bold text-2xl md:text-6xl tracking-[0.3em] text-center">
+                    <div className="text-white font-display font-bold text-xs md:text-3xl tracking-[0.2em] text-center uppercase">
                       {word}
                     </div>
 
-                    {/* Crack Effect Overlay */}
                     {breakingWordIndex === i && (
                       <motion.div 
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: [0, 1, 0] }}
-                        transition={{ duration: 0.4 }}
+                        animate={{ opacity: [0, 0.8, 0] }}
+                        transition={{ duration: 0.35 }}
                         className="absolute inset-0 pointer-events-none flex items-center justify-center"
                       >
                         <svg viewBox="0 0 100 40" className="w-full h-full overflow-visible">
                           <motion.path
                             d="M 10 20 L 30 15 L 50 25 L 70 10 L 90 20"
                             stroke="#FF2D2D"
-                            strokeWidth="2"
+                            strokeWidth="1.5"
                             fill="none"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
                             transition={{ duration: 0.3 }}
-                            className="drop-shadow-[0_0_10px_rgba(255,45,45,1)]"
+                            className="drop-shadow-[0_0_8px_rgba(255,45,45,1)]"
                           />
                         </svg>
                       </motion.div>
@@ -159,34 +156,32 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
         </div>
       )}
 
-      {/* Scene 5: "I DIDN'T STOP." */}
       <AnimatePresence>
         {showFinalText && (
           <motion.div
-            initial={{ y: 40, opacity: 0 }}
+            initial={{ y: 80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-center"
           >
-            <h2 className="text-4xl md:text-7xl font-display font-bold tracking-tighter text-white drop-shadow-[0_0_25px_rgba(255,45,45,0.5)]">
-              I DIDN’T STOP.
+            <h2 className="text-2xl md:text-5xl font-display font-bold text-white drop-shadow-[0_0_20px_rgba(255,45,45,0.4)]">
+              I didn't stop.
             </h2>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Scene 6: Brand Reveal */}
       <AnimatePresence>
         {showBrand && (
-          <div className="flex flex-col items-center justify-center text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-black">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
               className="mb-10"
             >
-              <h1 className="text-7xl md:text-9xl font-display font-bold tracking-tighter text-white relative">
+              <h1 className="text-5xl md:text-9xl font-display font-bold tracking-tighter text-white relative">
                 SHIEZO AI
                 <motion.div 
                   animate={{ opacity: [0.3, 0.6, 0.3] }}
@@ -197,7 +192,7 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
               <motion.div 
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="mt-2 text-accent font-display text-sm md:text-xl tracking-[0.5em] font-medium"
+                className="mt-2 text-accent font-display text-[10px] md:text-xl tracking-[0.5em] font-medium uppercase"
               >
                 SMART SELLING WITH AI
               </motion.div>
@@ -209,9 +204,9 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
               transition={{ delay: 1, duration: 1 }}
               className="relative"
             >
-              <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">Founder Identity</p>
-              <h3 className="text-2xl md:text-3xl font-display font-bold tracking-tight text-white/90">~SHIVAM</h3>
-              <p className="text-white/30 text-[8px] md:text-[10px] tracking-[0.2em] uppercase max-w-[250px] mx-auto leading-relaxed mt-1">
+              <p className="text-white/30 text-[8px] md:text-[10px] tracking-widest uppercase mb-1">Founder Identity</p>
+              <h3 className="text-lg md:text-3xl font-display font-bold tracking-tight text-white/90">~SHIVAM</h3>
+              <p className="text-white/30 text-[7px] md:text-[10px] tracking-[0.2em] uppercase max-w-[280px] mx-auto leading-relaxed mt-1">
                 AI EXPERT, DEVELOPER, FOUNDER, ENTREPRENEUR
               </p>
               <div className="absolute -inset-4 bg-accent/5 blur-xl -z-10 rounded-full" />
@@ -925,6 +920,24 @@ export default function App() {
                     {i < 2 && <div className="h-[1px] w-full bg-white/5" />}
                   </div>
                 ))}
+              </div>
+
+              {/* Talk to Manager Section */}
+              <div className="mt-4 flex flex-col items-center">
+                <div className="w-1/2 h-[1px] bg-white/20 mb-3" />
+                
+                <h4 className="text-[10px] font-display font-medium tracking-[0.2em] text-white uppercase mb-3">
+                  TALK TO MANAGER
+                </h4>
+
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+                  <div className="w-5 h-5 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white">
+                    <Mail className="w-3 h-3" />
+                  </div>
+                  <span className="text-xs font-display text-white/80 group-hover:text-white transition-colors">
+                    shiezoai@gmail.com
+                  </span>
+                </div>
               </div>
             </motion.div>
           </div>
