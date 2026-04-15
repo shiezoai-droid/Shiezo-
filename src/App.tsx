@@ -84,7 +84,7 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
       </AnimatePresence>
 
       {!showFinalText && !showBrand && (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:gap-x-12 md:gap-y-16 max-w-xs md:max-w-2xl w-full">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:gap-x-12 md:gap-y-16 max-w-sm md:max-w-2xl w-full">
           {words.map((word, i) => (
             <div key={i} className="relative flex items-center justify-center">
               <AnimatePresence>
@@ -123,7 +123,7 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
                     }
                     className="relative"
                   >
-                    <div className="text-white font-display font-bold text-xs md:text-3xl tracking-[0.2em] text-center uppercase">
+                    <div className="text-white font-display font-bold text-lg md:text-6xl tracking-[0.15em] md:tracking-[0.2em] text-center uppercase">
                       {word}
                     </div>
 
@@ -165,7 +165,7 @@ const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {
             transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             className="text-center"
           >
-            <h2 className="text-2xl md:text-5xl font-display font-bold text-white drop-shadow-[0_0_20px_rgba(255,45,45,0.4)]">
+            <h2 className="text-4xl md:text-7xl font-display font-bold text-white drop-shadow-[0_0_20px_rgba(255,45,45,0.4)]">
               I didn't stop.
             </h2>
           </motion.div>
