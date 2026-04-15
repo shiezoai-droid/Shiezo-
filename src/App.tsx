@@ -470,20 +470,20 @@ export default function App() {
               </section>
 
         {/* IDEA SECTION */}
-        <section className="relative py-16 flex items-center justify-center bg-black z-10 overflow-hidden">
+        <section className="relative py-12 flex items-center justify-center bg-black z-10 overflow-hidden">
           <motion.div 
             style={{ y: bgY1 }}
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 0.15 }}
             viewport={{ once: false }}
             transition={{ duration: 1.5 }}
-            className="absolute w-[500px] h-[500px] bg-accent/20 blur-[100px] rounded-full"
+            className="absolute w-[400px] h-[400px] bg-accent/20 blur-[80px] rounded-full"
           />
           
           <FadeInSection className="relative z-10 text-center px-6">
             <motion.h2 
               style={{ y: bgY2 }}
-              className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-4"
+              className="text-2xl md:text-4xl font-display font-bold tracking-tight mb-2"
             >
               “So I built something simple...”
             </motion.h2>
@@ -491,49 +491,43 @@ export default function App() {
         </section>
 
         {/* CORE IDEA BLOCK */}
-        <section className="py-10 px-6 bg-black z-10 relative">
+        <section className="py-8 px-6 bg-black z-10 relative">
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                { title: "UPLOAD", icon: <motion.div animate={{ opacity: [0.8, 1, 0.8] }} transition={{ duration: 2, repeat: Infinity }}><CloudUpload className="w-7 h-7" /></motion.div>, desc: "Drop your product images" },
-                { title: "AI ANALYZE", icon: <motion.div animate={{ opacity: [0.8, 1, 0.8] }} transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}><Brain className="w-7 h-7" /></motion.div>, desc: "Instant market intelligence" },
-                { title: "START SELLING", icon: <motion.div animate={{ opacity: [0.8, 1, 0.8] }} transition={{ duration: 2, repeat: Infinity, delay: 1 }}><Rocket className="w-7 h-7" /></motion.div>, desc: "Ready for the world" }
+                { title: "UPLOAD", icon: <CloudUpload className="w-6 h-6" />, desc: "Drop your product images" },
+                { title: "AI ANALYZE", icon: <Brain className="w-6 h-6" />, desc: "Instant market intelligence" },
+                { title: "START SELLING", icon: <Rocket className="w-6 h-6" />, desc: "Ready for the world" }
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ 
-                    duration: 0.8, 
-                    delay: i * 0.15,
+                    duration: 0.6, 
+                    delay: i * 0.1,
                     ease: [0.22, 1, 0.36, 1]
                   }}
-                  whileHover={{ 
-                    y: -4,
-                    boxShadow: "0 0 20px rgba(255, 45, 45, 0.15)"
-                  }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="relative p-[1px] rounded-[22px] overflow-hidden group transition-all duration-300"
+                  className="relative p-[1px] rounded-[20px] overflow-hidden group transition-all duration-300"
                 >
                   {/* Animated Border Glow */}
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
                     className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-40 group-hover:opacity-100 transition-opacity duration-500"
                   />
                   
-                  <div className="relative bg-gradient-to-b from-[#0A0A0A] to-[#111111] p-[14px] rounded-[21px] flex flex-col items-center text-center h-full z-10">
-                    {/* Inner Glass Highlight */}
-                    <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                    
+                  <div className="relative bg-[#0A0A0A] p-5 rounded-[19px] flex flex-col items-center text-center h-full z-10">
                     <motion.div 
-                      whileHover={{ scale: 1.08 }}
-                      className="w-14 h-14 rounded-2xl bg-[#1A1A1A] flex items-center justify-center text-white mb-4 relative z-10 shadow-[0_0_12px_rgba(255,45,45,0.2)]"
+                      className="w-12 h-12 rounded-xl bg-[#1A1A1A] flex items-center justify-center text-white mb-4 relative z-10 shadow-[0_0_15px_rgba(255,45,45,0.2)]"
                     >
+                      <div className="absolute inset-0 bg-accent/20 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                       {item.icon}
                     </motion.div>
-                    <h3 className="font-display text-lg font-bold tracking-widest mb-1 relative z-10 text-white">{item.title}</h3>
+                    <h3 className="font-display text-base font-bold tracking-widest mb-1 relative z-10 text-white">{item.title}</h3>
                     <p className="text-white/30 text-[10px] font-light tracking-wide relative z-10">{item.desc}</p>
                   </div>
                 </motion.div>
@@ -543,23 +537,23 @@ export default function App() {
         </section>
 
         {/* FEATURES (HORIZONTAL) */}
-        <section className="py-20 bg-black z-10 relative overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-accent/5 blur-[150px] rounded-full -z-10 opacity-30" />
+        <section className="py-12 bg-black z-10 relative overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-accent/5 blur-[120px] rounded-full -z-10 opacity-20" />
           
-          <FadeInSection className="mb-12 px-6 text-center">
+          <FadeInSection className="mb-8 px-6 text-center">
             <motion.p 
               initial={{ opacity: 0, tracking: "0.2em" }}
               whileInView={{ opacity: 1, tracking: "0.4em" }}
-              className="text-accent text-[10px] uppercase font-bold mb-3"
+              className="text-accent text-[9px] uppercase font-bold mb-2"
             >
               Capabilities
             </motion.p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tighter">POWERED BY INTELLIGENCE</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tighter">POWERED BY INTELLIGENCE</h2>
           </FadeInSection>
 
-          <div className="flex overflow-x-auto pb-10 px-6 no-scrollbar gap-5 snap-x">
+          <div className="flex overflow-x-auto pb-8 px-6 no-scrollbar gap-4 snap-x">
             {[
-              { title: "Find Winning Products", icon: <Zap className="w-5 h-5" />, desc: "Discover trending and high-demand products using AI. Analyze market demand, competition, and growth potential to select products that actually sell." },
+              { title: "Find Winning Products", icon: <Zap className="w-5 h-5" />, desc: "Discover trending and high-demand products using AI. Analyze market demand, competition, and growth potential." },
               { title: "Create Product Details", icon: <Lightbulb className="w-5 h-5" />, desc: "Generate optimized titles, descriptions, and highlights tailored for marketplaces like Meesho, Flipkart, and Amazon." },
               { title: "Generate Sales Caption", icon: <Rocket className="w-5 h-5" />, desc: "Create high-converting captions using AI copywriting models to boost engagement and sales." },
               { title: "Smart AI Suggestions", icon: <Zap className="w-5 h-5" />, desc: "Get intelligent recommendations based on your product, niche, and target audience to improve performance." },
@@ -568,39 +562,38 @@ export default function App() {
             ].map((feature, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                initial={{ opacity: 0, x: 30, scale: 0.95 }}
                 whileInView={{ opacity: 1, x: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-20px" }}
                 transition={{ 
-                  duration: 0.7, 
-                  delay: i * 0.1,
+                  duration: 0.6, 
+                  delay: i * 0.08,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                whileHover={{ 
-                  y: -4,
-                  boxShadow: "0 0 20px rgba(255, 45, 45, 0.15)"
-                }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="relative min-w-[280px] p-[1px] rounded-[24px] overflow-hidden group transition-all duration-300 snap-center"
+                className="relative min-w-[260px] p-[1px] rounded-[20px] overflow-hidden group transition-all duration-300 snap-center"
               >
                 {/* Animated Border Glow */}
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
                   className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-40 group-hover:opacity-100 transition-opacity duration-500"
                 />
 
-                <div className="relative bg-[#0D0D0D] p-7 rounded-[23px] flex flex-col justify-between h-48 z-10">
-                  <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="text-accent/80 group-hover:scale-110 transition-transform duration-300 relative z-10">{feature.icon}</div>
+                <div className="relative bg-[#0A0A0A] p-6 rounded-[19px] flex flex-col justify-between h-44 z-10">
+                  <div className="w-10 h-10 rounded-lg bg-[#1A1A1A] flex items-center justify-center text-accent/80 relative z-10 shadow-[0_0_10px_rgba(255,45,45,0.15)]">
+                    <div className="absolute inset-0 bg-accent/10 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {feature.icon}
+                  </div>
                   <div className="relative z-10">
-                    <h4 className="text-lg font-display font-bold text-white/90 mb-1">{feature.title}</h4>
-                    <p className="text-white/30 text-xs mb-4 font-light line-clamp-2">{feature.desc}</p>
+                    <h4 className="text-base font-display font-bold text-white/90 mb-1">{feature.title}</h4>
+                    <p className="text-white/30 text-[10px] mb-3 font-light line-clamp-2">{feature.desc}</p>
                     <button 
                       onClick={() => setSelectedFeature({ title: feature.title, desc: feature.desc })}
-                      className="flex items-center text-accent text-[10px] font-bold tracking-widest uppercase group-hover:gap-2 transition-all"
+                      className="flex items-center text-accent text-[9px] font-bold tracking-widest uppercase group-hover:gap-2 transition-all"
                     >
-                      Explore <ChevronRight className="w-3.5 h-3.5 ml-1" />
+                      Explore <ChevronRight className="w-3 ml-1" />
                     </button>
                   </div>
                 </div>
@@ -610,71 +603,71 @@ export default function App() {
         </section>
 
         {/* FUTURE VISION */}
-        <section className="py-20 px-6 bg-black z-10 relative text-center overflow-hidden">
+        <section className="py-12 px-6 bg-black z-10 relative text-center overflow-hidden">
           <motion.div 
             style={{ y: bgY1, opacity: 0.1 }}
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/10 blur-[120px] rounded-full -z-10"
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-accent/10 blur-[100px] rounded-full -z-10"
           />
           <motion.div
             style={{ y: bgY2 }}
             initial={{ scale: 0.98, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2 }}
+            transition={{ duration: 1 }}
             className="max-w-4xl mx-auto"
           >
-            <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter mb-4 leading-none">
+            <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tighter mb-2 leading-none">
               “This is just the beginning...”
             </h2>
-            <p className="text-lg md:text-2xl font-display font-light text-white/40">
+            <p className="text-base md:text-xl font-display font-light text-white/40">
               SHIEZO AI will change selling.
             </p>
           </motion.div>
         </section>
 
         {/* FOUNDER STORY CARD */}
-        <section className="py-12 px-6 bg-black z-10 relative">
+        <section className="py-8 px-6 bg-black z-10 relative">
           <div className="max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-card rounded-[20px] p-8 md:p-10 border border-accent/15 red-glow relative overflow-hidden"
+              className="bg-[#0A0A0A] rounded-[20px] p-6 md:p-8 border border-accent/15 relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 blur-[50px] rounded-full -mr-20 -mt-20" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-[40px] rounded-full -mr-16 -mt-16" />
               
               <div className="relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-3">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-2">
                   <div>
-                    <h3 className="text-xl font-display font-bold tracking-tight mb-1 text-white/90">~SHIVAM</h3>
-                    <p className="text-accent text-[9px] tracking-[0.2em] uppercase font-bold">
+                    <h3 className="text-lg font-display font-bold tracking-tight mb-0.5 text-white/90">~SHIVAM</h3>
+                    <p className="text-accent text-[8px] tracking-[0.2em] uppercase font-bold">
                       AI EXPERT, DEVELOPER, FOUNDER, ENTREPRENEUR
                     </p>
                   </div>
-                  <div className="h-[1px] flex-grow mx-6 bg-white/10 hidden md:block mb-1.5" />
-                  <div className="text-white/20 text-[9px] font-mono tracking-widest">EST. 2026</div>
+                  <div className="h-[1px] flex-grow mx-4 bg-white/10 hidden md:block mb-1" />
+                  <div className="text-white/20 text-[8px] font-mono tracking-widest">EST. 2026</div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {[
-                    { icon: <Zap className="w-3.5 h-3.5" />, text: "Student Hustler" },
-                    { icon: <Truck className="w-3.5 h-3.5" />, text: "Delivery + Study" },
-                    { icon: <BookOpen className="w-3.5 h-3.5" />, text: "School Life" },
-                    { icon: <Lightbulb className="w-3.5 h-3.5" />, text: "Idea from Struggle" },
-                    { icon: <Rocket className="w-3.5 h-3.5" />, text: "Built SHIEZO" }
+                    { icon: <Zap className="w-3 h-3" />, text: "Student Hustler" },
+                    { icon: <Truck className="w-3 h-3" />, text: "Delivery + Study" },
+                    { icon: <BookOpen className="w-3 h-3" />, text: "School Life" },
+                    { icon: <Lightbulb className="w-3 h-3" />, text: "Idea from Struggle" },
+                    { icon: <Rocket className="w-3 h-3" />, text: "Built SHIEZO" }
                   ].map((point, i) => (
                     <motion.div
                       key={point.text}
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: 0.2 + i * 0.05 }}
-                      className="flex items-center gap-3 group"
+                      transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }}
+                      className="flex items-center gap-2.5 group/point"
                     >
-                      <div className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                      <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-accent group-hover/point:bg-accent group-hover/point:text-white transition-all duration-300">
                         {point.icon}
                       </div>
-                      <span className="text-sm md:text-base font-display font-medium text-white/70">{point.text}</span>
+                      <span className="text-xs md:text-sm font-display font-medium text-white/70">{point.text}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -684,18 +677,18 @@ export default function App() {
         </section>
 
         {/* CONTACT SECTION */}
-        <section className="py-16 px-6 bg-black z-10 relative text-center">
+        <section className="py-12 px-6 bg-black z-10 relative text-center">
           <FadeInSection>
-            <h2 className="text-2xl md:text-3xl font-display font-bold tracking-tight mb-6 text-glow">
+            <h2 className="text-xl md:text-2xl font-display font-bold tracking-tight mb-4 text-glow">
               IF YOU ARE INTERESTED, CONTACT US
             </h2>
             <motion.button
-              whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(255, 45, 45, 0.4)" }}
+              whileHover={{ scale: 1.02, boxShadow: "0 0 15px rgba(255, 45, 45, 0.3)" }}
               whileTap={{ scale: 0.96 }}
-              animate={{ boxShadow: ["0 0 10px rgba(255, 45, 45, 0.1)", "0 0 20px rgba(255, 45, 45, 0.3)", "0 0 10px rgba(255, 45, 45, 0.1)"] }}
+              animate={{ boxShadow: ["0 0 5px rgba(255, 45, 45, 0.1)", "0 0 15px rgba(255, 45, 45, 0.2)", "0 0 5px rgba(255, 45, 45, 0.1)"] }}
               transition={{ duration: 2, repeat: Infinity }}
               onClick={() => setIsContactOpen(true)}
-              className="bg-black border border-accent/40 text-white px-10 py-3.5 rounded-full font-bold text-xs tracking-widest uppercase transition-all duration-300"
+              className="bg-black border border-accent/40 text-white px-8 py-3 rounded-full font-bold text-[10px] tracking-widest uppercase transition-all duration-300"
             >
               Contact Us
             </motion.button>
@@ -704,16 +697,16 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="py-8 px-6 bg-black z-10 relative border-t border-white/5">
+      <footer className="py-6 px-6 bg-black z-10 relative border-t border-white/5">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
           {/* 1. COPYRIGHT TEXT */}
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mb-3"
+            className="mb-2"
           >
-            <span className="text-[10px] md:text-[11px] font-display font-bold tracking-[0.2em] uppercase text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+            <span className="text-[9px] font-display font-bold tracking-[0.2em] uppercase text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">
               SHIEZO AI © 2026
             </span>
           </motion.div>
@@ -723,28 +716,28 @@ export default function App() {
             initial={{ opacity: 0, y: 5 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-4"
+            className="mb-3"
           >
             <motion.h2 
               animate={{ 
                 textShadow: [
                   "0 0 5px rgba(255, 255, 255, 0.2)",
-                  "0 0 12px rgba(255, 255, 255, 0.5)",
+                  "0 0 10px rgba(255, 255, 255, 0.4)",
                   "0 0 5px rgba(255, 255, 255, 0.2)"
                 ]
               }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="font-display font-bold text-xs md:text-sm tracking-[0.3em] uppercase text-white"
+              className="font-display font-bold text-[10px] tracking-[0.3em] uppercase text-white"
             >
               FOLLOW US
             </motion.h2>
           </motion.div>
 
           {/* 3. SOCIAL ICONS */}
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-3">
             {[
               { 
-                icon: <Linkedin className="w-4 h-4" />, 
+                icon: <Linkedin className="w-3.5 h-3.5" />, 
                 label: "LinkedIn",
                 onClick: (e: MouseEvent) => {
                   e.preventDefault();
@@ -753,12 +746,12 @@ export default function App() {
                 }
               },
               { 
-                icon: <Instagram className="w-4 h-4" />, 
+                icon: <Instagram className="w-3.5 h-3.5" />, 
                 label: "Instagram",
                 href: "https://www.instagram.com/hey.iam.shivamm?igsh=MWNsaGZpM3p0dTdyNA=="
               },
               { 
-                icon: <Facebook className="w-4 h-4" />, 
+                icon: <Facebook className="w-3.5 h-3.5" />, 
                 label: "Facebook",
                 href: "https://www.facebook.com/share/1A4ZzqzBQS/"
               }
@@ -775,7 +768,7 @@ export default function App() {
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-9 h-9 rounded-[8px] bg-[#1A1A1A] flex items-center justify-center text-white transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.05)]"
+                className="w-7 h-7 rounded-md bg-[#1A1A1A] flex items-center justify-center text-white transition-all duration-300 shadow-[0_0_8px_rgba(255,255,255,0.05)]"
               >
                 {social.icon}
               </motion.a>
@@ -816,11 +809,11 @@ export default function App() {
             </motion.div>
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-lg bg-[#111111] rounded-[22px] p-8 border border-accent/20 shadow-[0_0_40px_rgba(255,45,45,0.2)] overflow-hidden"
+              className="relative w-full max-w-lg bg-[#111111] rounded-[24px] p-8 border border-accent/30 shadow-[0_0_50px_rgba(255,45,45,0.25)] overflow-hidden"
             >
               {/* Pulse Glow Effect */}
               <motion.div 
@@ -829,9 +822,6 @@ export default function App() {
                 className="absolute inset-0 bg-accent/10 blur-3xl -z-10"
               />
               
-              {/* Inner Depth Highlight */}
-              <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-
               <button 
                 onClick={() => setSelectedFeature(null)}
                 className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[#1A1A1A] hover:bg-white/10 transition-colors text-white/60 hover:text-white z-20"
@@ -840,22 +830,22 @@ export default function App() {
               </button>
 
               <div className="relative z-10">
-                <h3 className="text-2xl font-display font-bold mb-6 tracking-[0.1em] text-white uppercase">
+                <h3 className="text-xl font-display font-bold mb-4 tracking-[0.1em] text-white uppercase drop-shadow-[0_0_8px_rgba(255,45,45,0.4)]">
                   {selectedFeature.title}
                 </h3>
                 
                 <div className="h-[1px] w-full bg-gradient-to-r from-accent/50 to-transparent mb-6" />
                 
-                <p className="text-white/70 text-base md:text-lg font-light leading-relaxed">
+                <p className="text-white/80 text-sm md:text-base font-light leading-relaxed">
                   {selectedFeature.desc}
                 </p>
                 
-                <div className="mt-10 flex justify-end">
+                <div className="mt-8 flex justify-end">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedFeature(null)}
-                    className="bg-accent text-white px-8 py-3 rounded-full font-bold text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(255,45,45,0.3)]"
+                    className="bg-accent text-white px-8 py-2.5 rounded-full font-bold text-[10px] tracking-widest uppercase shadow-[0_0_15px_rgba(255,45,45,0.3)]"
                   >
                     Got it
                   </motion.button>
