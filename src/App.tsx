@@ -4,8 +4,268 @@
  */
 
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { Menu, Zap, Truck, BookOpen, Lightbulb, Rocket, ChevronRight, CloudUpload, Brain, Linkedin, Instagram, Facebook, Mail } from "lucide-react";
+import { Menu, Zap, Truck, BookOpen, Lightbulb, Rocket, ChevronRight, CloudUpload, Brain, Linkedin, Instagram, Facebook, Mail, HelpCircle, X, AlertTriangle, Search, Zap as ZapIcon, Target } from "lucide-react";
 import { useRef, useState, useEffect, ReactNode, MouseEvent } from "react";
+
+const WhatIsShiezoPage = ({ onClose }: { onClose: () => void }) => {
+  return (
+    <motion.div
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
+      transition={{ type: "spring", damping: 30, stiffness: 300 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-10"
+    >
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="absolute inset-0 bg-black/80 backdrop-blur-2xl"
+      />
+      
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ 
+          scale: 1, 
+          opacity: 1,
+          y: [0, -8, 0]
+        }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ 
+          scale: { delay: 0.1 },
+          opacity: { delay: 0.1 },
+          y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+        }}
+        className="relative w-full max-w-2xl bg-[#0A0A0A] text-white rounded-[26px] overflow-hidden border border-accent/30 shadow-[0_0_50px_rgba(255,45,45,0.15)] flex flex-col max-h-[90vh]"
+      >
+        {/* Animated Background Glow */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.05, 0.1, 0.05]
+            }}
+            transition={{ duration: 8, repeat: Infinity }}
+            className="absolute -top-1/2 -left-1/2 w-full h-full bg-accent/20 blur-[120px] rounded-full"
+          />
+          {/* Graphic Grid Overlay */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+        </div>
+
+        {/* Close Button */}
+        <motion.button 
+          onClick={onClose}
+          whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 45, 45, 0.2)" }}
+          whileTap={{ scale: 0.9 }}
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 transition-all z-[60] border border-white/10 hover:border-accent/40"
+        >
+          <X className="w-5 h-5 text-white/70" />
+        </motion.button>
+
+        <div className="p-8 md:p-12 overflow-y-auto custom-scrollbar relative z-10">
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", delay: 0.2 }}
+              className="inline-block mb-4 p-3 rounded-2xl bg-accent/10 border border-accent/20 shadow-[0_0_20px_rgba(255,45,45,0.1)]"
+            >
+              <HelpCircle className="w-8 h-8 text-accent" />
+            </motion.div>
+            <motion.h2 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-2 text-glow"
+            >
+              What is SHIEZO AI?
+            </motion.h2>
+            <motion.p 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-white/40 font-medium tracking-wide uppercase text-[10px]"
+            >
+              Your AI-powered selling assistant
+            </motion.p>
+          </div>
+
+          <div className="space-y-12">
+            {[
+              { icon: <AlertTriangle className="w-6 h-6" />, title: "Problem", content: "Most beginners don’t know what to sell or how to sell online", color: "text-amber-500" },
+              { icon: <Brain className="w-6 h-6" />, title: "Solution", content: "SHIEZO AI helps you find products, create content, and start selling instantly", color: "text-blue-500" },
+              { 
+                icon: <Search className="w-6 h-6" />, 
+                title: "What it does", 
+                items: ["Finds trending products", "Generates product details", "Creates sales captions", "Gives growth suggestions"],
+                color: "text-purple-500"
+              },
+              { 
+                icon: <ZapIcon className="w-6 h-6" />, 
+                title: "How it works", 
+                steps: ["Find product", "Generate details", "Create caption", "Start selling"],
+                color: "text-yellow-500"
+              },
+              { 
+                icon: <Target className="w-6 h-6" />, 
+                title: "Who is it for", 
+                items: ["Meesho sellers", "Amazon beginners", "Flipkart resellers", "Students / side hustlers"],
+                color: "text-accent"
+              }
+            ].map((section, idx) => (
+              <motion.div 
+                key={section.title}
+                initial={{ x: -30, opacity: 0, filter: "blur(10px)" }}
+                whileInView={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.8,
+                  delay: 0.5 + idx * 0.1,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+                className="flex gap-6 group"
+              >
+                <div className="flex-shrink-0 relative">
+                  <motion.div 
+                    whileHover={{ scale: 1.15, rotate: 8 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-16 h-16 rounded-[22px] bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center relative z-10 group-hover:border-accent/60 transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]`}
+                  >
+                    {/* Graphic Glow Layer */}
+                    <div className={`absolute inset-0 bg-current opacity-0 group-hover:opacity-20 blur-2xl rounded-full transition-opacity duration-500 ${section.color}`} />
+                    <div className={`absolute -inset-[1px] bg-gradient-to-br from-white/20 to-transparent rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                    
+                    <motion.div 
+                      animate={{ 
+                        scale: [1, 1.1, 1],
+                        rotate: [0, 5, 0]
+                      }}
+                      transition={{ 
+                        duration: 4, 
+                        repeat: Infinity, 
+                        ease: "easeInOut",
+                        delay: idx * 0.5
+                      }}
+                      className={`${section.color} group-hover:scale-110 transition-transform duration-500 relative z-20 drop-shadow-[0_0_8px_currentColor]`}
+                    >
+                      {section.icon}
+                    </motion.div>
+                  </motion.div>
+                  {idx < 4 && (
+                    <motion.div 
+                      initial={{ height: 0 }}
+                      whileInView={{ height: 40 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.8 + idx * 0.1, duration: 0.5 }}
+                      className="absolute top-16 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-accent/40 via-accent/10 to-transparent" 
+                    />
+                  )}
+                </div>
+                <div className="pt-2 flex-grow">
+                  <motion.h4 
+                    whileHover={{ x: 5 }}
+                    className="font-display font-bold text-base uppercase tracking-[0.2em] mb-3 flex items-center gap-3 text-white/90 group-hover:text-white transition-all duration-300"
+                  >
+                    <span className="group-hover:text-accent transition-colors">{section.title}</span>
+                    <div className="h-[1px] flex-grow bg-gradient-to-r from-accent/40 to-transparent origin-left scale-x-50 group-hover:scale-x-100 transition-transform duration-500" />
+                  </motion.h4>
+                  {section.content && <p className="text-white/50 text-sm leading-relaxed font-medium">{section.content}</p>}
+                  {section.items && (
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {section.items.map(item => (
+                        <li key={item} className="text-white/50 text-xs flex items-center gap-3 group/item">
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent/40 group-hover/item:bg-accent transition-colors" />
+                          <span className="group-hover/item:text-white/80 transition-colors">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {section.steps && (
+                    <div className="flex flex-wrap gap-4 mt-3">
+                      {section.steps.map((step, sIdx) => (
+                        <div key={step} className="flex items-center gap-3">
+                          <div className="relative">
+                            <span className="text-[10px] font-bold bg-accent/10 border border-accent/20 text-accent px-2.5 py-1 rounded-lg shadow-[0_0_10px_rgba(255,45,45,0.1)]">
+                              {sIdx + 1}
+                            </span>
+                          </div>
+                          <span className="text-xs text-white/50 font-bold uppercase tracking-tighter">{step}</span>
+                          {sIdx < section.steps.length - 1 && <ChevronRight className="w-4 h-4 text-white/10" />}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Founder Footer */}
+        <div className="mt-auto p-8 border-t border-white/5 bg-white/[0.02] flex items-center justify-between relative z-10">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent to-red-900 p-[1px] shadow-[0_0_20px_rgba(255,45,45,0.2)]">
+              <div className="w-full h-full rounded-2xl bg-black flex items-center justify-center overflow-hidden">
+                <img src="https://picsum.photos/seed/shivam/100/100" alt="Shivam" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-bold tracking-tight text-white/90">Founder – SHIEZO AI</p>
+              <p className="text-[10px] text-accent font-bold uppercase tracking-[0.2em]">~SHIVAM</p>
+            </div>
+          </div>
+          <div className="hidden md:block">
+            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/30">
+              Est. 2024
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const MenuOverlay = ({ isOpen, onClose, onWhatIsClick }: { isOpen: boolean; onClose: () => void; onWhatIsClick: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="fixed top-20 left-6 z-[70] w-64 bg-[#111111] rounded-2xl border border-white/10 p-2 shadow-2xl"
+          >
+            <button
+              onClick={() => {
+                onWhatIsClick();
+                onClose();
+              }}
+              className="w-full flex items-center gap-4 px-4 py-4 rounded-xl hover:bg-white/5 transition-all duration-300 group text-left relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-500 relative z-10 border border-accent/20 group-hover:border-accent/40 shadow-[0_0_15px_rgba(255,45,45,0.1)]">
+                <HelpCircle className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
+              </div>
+              <div className="relative z-10">
+                <p className="text-sm font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">What is SHIEZO AI</p>
+                <p className="text-[9px] text-accent/60 font-bold uppercase tracking-[0.2em]">Learn more</p>
+              </div>
+            </button>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const FadeInSection = ({ children, className = "" }: { children: ReactNode; className?: string }) => {
   return (
@@ -251,6 +511,8 @@ const Particles = () => {
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isWhatIsPageOpen, setIsWhatIsPageOpen] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState<{ title: string; desc: string } | null>(null);
   const [logoError, setLogoError] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
@@ -302,6 +564,12 @@ export default function App() {
 
   return (
     <div ref={containerRef} className="relative bg-black text-white selection:bg-accent selection:text-white min-h-screen flex flex-col">
+      <AnimatePresence>
+        {isWhatIsPageOpen && (
+          <WhatIsShiezoPage onClose={() => setIsWhatIsPageOpen(false)} />
+        )}
+      </AnimatePresence>
+
       <AnimatePresence mode="wait">
         {showIntro ? (
           <CinematicIntro onComplete={handleIntroComplete} />
@@ -345,13 +613,26 @@ export default function App() {
             >
               {/* Menu Button (ChatGPT Style) */}
               <motion.button 
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
                 whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
                 whileTap={{ scale: 0.96 }}
                 className="w-10 h-10 rounded-lg flex flex-col items-center justify-center gap-1.5 transition-colors"
               >
-                <div className="w-5 h-[1.5px] bg-white/80" />
-                <div className="w-5 h-[1.5px] bg-white/80" />
+                <motion.div 
+                  animate={isMenuOpen ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
+                  className="w-5 h-[1.5px] bg-white/80" 
+                />
+                <motion.div 
+                  animate={isMenuOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
+                  className="w-5 h-[1.5px] bg-white/80" 
+                />
               </motion.button>
+
+              <MenuOverlay 
+                isOpen={isMenuOpen} 
+                onClose={() => setIsMenuOpen(false)} 
+                onWhatIsClick={() => setIsWhatIsPageOpen(true)} 
+              />
               
               {/* Logo Center */}
               <div className="flex items-center justify-center">
@@ -505,9 +786,9 @@ export default function App() {
         </section>
 
         {/* CORE IDEA BLOCK */}
-        <section className="py-8 px-6 bg-black z-10 relative">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <section className="py-10 px-6 bg-black z-10 relative">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { title: "UPLOAD", icon: <CloudUpload className="w-6 h-6" />, desc: "Drop your product images" },
                 { title: "AI ANALYZE", icon: <Brain className="w-6 h-6" />, desc: "Instant market intelligence" },
@@ -515,34 +796,33 @@ export default function App() {
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: i * 0.1,
-                    ease: [0.22, 1, 0.36, 1]
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="relative p-[1px] rounded-[20px] overflow-hidden group transition-all duration-300"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -5 }}
+                  className="relative group p-[1px] rounded-[24px] overflow-hidden"
                 >
-                  {/* Animated Border Glow */}
+                  {/* Moving Red Glow Border */}
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-20 group-hover:opacity-100 transition-opacity duration-500"
                   />
-                  
-                  <div className="relative bg-[#0A0A0A] p-5 rounded-[19px] flex flex-col items-center text-center h-full z-10">
+
+                  <div className="relative bg-[#080808] p-6 rounded-[23px] flex flex-col items-center text-center overflow-hidden z-10">
                     <motion.div 
-                      className="w-12 h-12 rounded-xl bg-[#1A1A1A] flex items-center justify-center text-white mb-4 relative z-10 shadow-[0_0_15px_rgba(255,45,45,0.2)]"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white mb-4 relative z-10 border border-white/10 group-hover:border-accent/40 transition-all duration-500 shadow-xl"
                     >
-                      <div className="absolute inset-0 bg-accent/20 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {item.icon}
+                      <div className="absolute inset-0 bg-accent/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative z-20 text-accent group-hover:text-white transition-colors drop-shadow-[0_0_8px_rgba(255,45,45,0.6)]">
+                        {item.icon}
+                      </div>
                     </motion.div>
-                    <h3 className="font-display text-base font-bold tracking-widest mb-1 relative z-10 text-white">{item.title}</h3>
-                    <p className="text-white/30 text-[10px] font-light tracking-wide relative z-10">{item.desc}</p>
+                    
+                    <h3 className="font-display text-base font-bold tracking-[0.2em] uppercase mb-2 text-white/90 group-hover:text-white transition-colors">{item.title}</h3>
+                    <p className="text-white/40 text-[10px] font-medium tracking-wide leading-relaxed max-w-[180px]">{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -565,7 +845,7 @@ export default function App() {
             <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tighter">POWERED BY INTELLIGENCE</h2>
           </FadeInSection>
 
-          <div className="flex overflow-x-auto pb-8 px-6 no-scrollbar gap-4 snap-x">
+          <div className="flex overflow-x-auto pb-12 px-6 no-scrollbar gap-5 snap-x">
             {[
               { title: "Find Winning Products", icon: <Zap className="w-5 h-5" />, desc: "Discover trending and high-demand products using AI. Analyze market demand, competition, and growth potential." },
               { title: "Create Product Details", icon: <Lightbulb className="w-5 h-5" />, desc: "Generate optimized titles, descriptions, and highlights tailored for marketplaces like Meesho, Flipkart, and Amazon." },
@@ -576,38 +856,36 @@ export default function App() {
             ].map((feature, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: i * 0.08,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="relative min-w-[260px] p-[1px] rounded-[20px] overflow-hidden group transition-all duration-300 snap-center"
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                whileHover={{ y: -5 }}
+                className="relative min-w-[280px] md:min-w-[320px] p-[1px] rounded-[20px] overflow-hidden group transition-all duration-300 snap-center"
               >
-                {/* Animated Border Glow */}
+                {/* Moving Red Glow Border */}
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-20 group-hover:opacity-100 transition-opacity duration-500"
                 />
 
-                <div className="relative bg-[#0A0A0A] p-6 rounded-[19px] flex flex-col justify-between h-44 z-10">
-                  <div className="w-10 h-10 rounded-lg bg-[#1A1A1A] flex items-center justify-center text-accent/80 relative z-10 shadow-[0_0_10px_rgba(255,45,45,0.15)]">
-                    <div className="absolute inset-0 bg-accent/10 blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {feature.icon}
+                <div className="relative bg-[#0A0A0A] p-5 rounded-[19px] border border-white/5 flex items-center gap-4 h-28 overflow-hidden z-10">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-accent relative z-10 border border-white/10 group-hover:border-accent/40 transition-all duration-500">
+                    <div className="absolute inset-0 bg-accent/10 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative z-20 drop-shadow-[0_0_5px_rgba(255,45,45,0.4)]">
+                      {feature.icon}
+                    </div>
                   </div>
-                  <div className="relative z-10">
-                    <h4 className="text-base font-display font-bold text-white/90 mb-1">{feature.title}</h4>
-                    <p className="text-white/30 text-[10px] mb-3 font-light line-clamp-2">{feature.desc}</p>
+                  
+                  <div className="relative z-10 flex-grow">
+                    <h4 className="text-xs font-display font-bold text-white/90 mb-1 tracking-tight group-hover:text-white transition-colors uppercase">{feature.title}</h4>
+                    <p className="text-white/30 text-[9px] font-medium leading-relaxed line-clamp-2 mb-2">{feature.desc}</p>
                     <button 
                       onClick={() => setSelectedFeature({ title: feature.title, desc: feature.desc })}
-                      className="flex items-center text-accent text-[9px] font-bold tracking-widest uppercase group-hover:gap-2 transition-all"
+                      className="flex items-center text-accent text-[8px] font-bold tracking-[0.2em] uppercase group-hover:gap-2 transition-all"
                     >
-                      Explore <ChevronRight className="w-3 ml-1" />
+                      Explore <ChevronRight className="w-2.5 ml-1 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </div>
                 </div>
