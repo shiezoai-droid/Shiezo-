@@ -5,7 +5,9 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Menu, Zap, Truck, BookOpen, Lightbulb, Rocket, ChevronRight, CloudUpload, Brain, Linkedin, Instagram, Facebook, Mail, HelpCircle, X, AlertTriangle, Search, Zap as ZapIcon, Target } from "lucide-react";
-import { useRef, useState, useEffect, ReactNode, MouseEvent } from "react";
+import { useRef, useState, useEffect, ReactNode, MouseEvent, useMemo } from "react";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
+import AboutPage from "./pages/AboutPage";
 
 const WhatIsShiezoPage = ({ onClose }: { onClose: () => void }) => {
   return (
@@ -508,7 +510,7 @@ const Particles = () => {
   );
 };
 
-export default function App() {
+function LandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -1025,6 +1027,22 @@ export default function App() {
             </motion.h2>
           </motion.div>
 
+          {/* 2.5 ABOUT LINK */}
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-4"
+          >
+            <Link 
+              to="/about"
+              className="text-[10px] font-display font-medium tracking-[0.2em] uppercase text-white hover:text-accent transition-all duration-300 relative group drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+            >
+              ABOUT
+              <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
+            </Link>
+          </motion.div>
+
           {/* 3. SOCIAL ICONS */}
           <div className="flex items-center justify-center gap-3">
             {[
@@ -1201,7 +1219,6 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
-
       <style>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
@@ -1212,6 +1229,19 @@ export default function App() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function App() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 
