@@ -4,7 +4,7 @@
  */
 
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { Menu, Zap, Truck, BookOpen, Lightbulb, Rocket, ChevronRight, CloudUpload, Brain, Linkedin, Instagram, Facebook, Mail, HelpCircle, X, AlertTriangle, Search, Zap as ZapIcon, Target } from "lucide-react";
+import { Menu, Zap, Truck, BookOpen, Lightbulb, Rocket, ChevronRight, CloudUpload, Brain, Linkedin, Instagram, Facebook, Mail, HelpCircle, X, AlertTriangle, Search, Zap as ZapIcon, Target, User, Users, Briefcase } from "lucide-react";
 import { useRef, useState, useEffect, ReactNode, MouseEvent, useMemo } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
@@ -998,19 +998,35 @@ function LandingPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mb-2"
+            className="mb-3"
           >
             <span className="text-[9px] font-display font-bold tracking-[0.2em] uppercase text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">
               SHIEZO AI © 2026
             </span>
           </motion.div>
 
-          {/* 2. FOLLOW US */}
+          {/* 2. ABOUT LINK */}
           <motion.div
             initial={{ opacity: 0, y: 5 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mb-3"
+          >
+            <Link 
+              to="/about"
+              className="text-[10px] font-display font-medium tracking-[0.2em] uppercase text-white hover:text-accent transition-all duration-300 relative group drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+            >
+              ABOUT
+              <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
+            </Link>
+          </motion.div>
+
+          {/* 3. FOLLOW US */}
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-2"
           >
             <motion.h2 
               animate={{ 
@@ -1021,26 +1037,10 @@ function LandingPage() {
                 ]
               }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="font-display font-bold text-[10px] tracking-[0.3em] uppercase text-white"
+              className="font-display font-bold text-[10px] tracking-[0.3em] uppercase text-white/40"
             >
               FOLLOW US
             </motion.h2>
-          </motion.div>
-
-          {/* 2.5 ABOUT LINK */}
-          <motion.div
-            initial={{ opacity: 0, y: 5 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-4"
-          >
-            <Link 
-              to="/about"
-              className="text-[10px] font-display font-medium tracking-[0.2em] uppercase text-white hover:text-accent transition-all duration-300 relative group drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
-            >
-              ABOUT
-              <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
-            </Link>
           </motion.div>
 
           {/* 3. SOCIAL ICONS */}
@@ -1156,60 +1156,119 @@ function LandingPage() {
               className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.9, y: 30, rotateX: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
               exit={{ 
                 opacity: 0, 
                 scale: 0.9, 
-                y: 10,
-                filter: "blur(8px)",
-                transition: { duration: 0.3, ease: "easeIn" }
+                y: 20,
+                rotateX: -10,
+                filter: "blur(12px)",
+                transition: { duration: 0.25, ease: "easeIn" }
               }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-md bg-[#111111] rounded-[20px] p-6 border border-accent/30 red-glow shadow-2xl"
+              transition={{ 
+                type: "spring", 
+                damping: 20, 
+                stiffness: 250,
+                rotateX: { duration: 0.4 }
+              }}
+              className="relative w-full max-w-[380px] bg-[#0D0D0D] rounded-[32px] p-6 border border-accent/40 shadow-[0_0_60px_rgba(255,45,45,0.15)] overflow-hidden"
+              style={{ perspective: "1000px" }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <button 
+              {/* Background Accent Glows */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[60px] rounded-full -mr-16 -mt-16" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/5 blur-[50px] rounded-full -ml-16 -mb-16" />
+
+              <motion.button 
+                whileHover={{ scale: 1.1, rotate: 90, backgroundColor: "rgba(255,45,45,0.2)" }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setIsContactOpen(false)}
-                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white/60 hover:text-white"
+                className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 transition-colors text-white/60 hover:text-white z-20"
               >
-                ✕
-              </button>
+                <X className="w-4 h-4" />
+              </motion.button>
 
-              <h3 className="text-xl font-display font-bold mb-6 text-center tracking-tight">Email List</h3>
-              
-              <div className="flex flex-col gap-0.5">
-                {[
-                  { label: "Business Email", email: "business@shiezo.ai" },
-                  { label: "Personal Email", email: "shivam@shiezo.ai" },
-                  { label: "SHIEZO AI Team", email: "team@shiezo.ai" }
-                ].map((item, i) => (
-                  <div key={item.label} className="group">
-                    <div className="flex flex-col py-3 px-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
-                      <span className="text-[9px] uppercase tracking-widest text-white/30 mb-0.5">{item.label}</span>
-                      <span className="text-base font-display font-medium text-white/80 group-hover:text-accent transition-colors">
-                        {item.email}
-                      </span>
-                    </div>
-                    {i < 2 && <div className="h-[1px] w-full bg-white/5" />}
-                  </div>
-                ))}
-              </div>
-
-              {/* Talk to Manager Section */}
-              <div className="mt-4 flex flex-col items-center">
-                <div className="w-1/2 h-[1px] bg-white/20 mb-3" />
+              <div className="relative z-10">
+                <div className="flex flex-col items-center mb-6">
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", delay: 0.1 }}
+                    className="w-12 h-12 rounded-xl bg-accent/20 border border-accent/40 flex items-center justify-center text-accent mb-3 shadow-[0_0_20px_rgba(255,45,45,0.3)]"
+                  >
+                    <Mail className="w-6 h-6" />
+                  </motion.div>
+                  <h3 className="text-xl font-display font-bold tracking-tighter text-white">Email Directory</h3>
+                  <p className="text-[9px] text-white/40 uppercase tracking-[0.3em] font-medium mt-1">Get in touch with our team</p>
+                </div>
                 
-                <h4 className="text-[10px] font-display font-medium tracking-[0.2em] text-white uppercase mb-3">
-                  TALK TO MANAGER
-                </h4>
+                <div className="space-y-1.5">
+                  {[
+                    { label: "Business Inquiry", email: "business@shiezo.ai", icon: <Briefcase className="w-3.5 h-3.5" /> },
+                    { label: "Direct Founder", email: "shivam@shiezo.ai", icon: <User className="w-3.5 h-3.5" /> },
+                    { label: "Technical Support", email: "team@shiezo.ai", icon: <Users className="w-3.5 h-3.5" /> }
+                  ].map((item, i) => (
+                    <motion.div 
+                      key={item.label}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + (i * 0.1) }}
+                      className="group"
+                    >
+                      <motion.div 
+                        whileHover={{ x: 5, backgroundColor: "rgba(255,255,255,0.02)" }}
+                        className="flex items-center gap-3 p-3 rounded-2xl border border-transparent hover:border-white/10 transition-all cursor-pointer overflow-hidden relative"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/50 group-hover:text-accent group-hover:bg-accent/10 transition-colors">
+                          {item.icon}
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-[7px] uppercase tracking-widest text-accent font-bold mb-0.5">{item.label}</span>
+                          <span className="text-xs font-display font-medium text-white/90 group-hover:text-white transition-colors">
+                            {item.email}
+                          </span>
+                        </div>
+                        
+                        <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                          <motion.div 
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ repeat: Infinity, duration: 1.5 }}
+                          >
+                            <ChevronRight className="w-3 h-3 text-accent" />
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  ))}
+                </div>
 
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
-                  <div className="w-5 h-5 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white">
-                    <Mail className="w-3 h-3" />
+                {/* Footer Section */}
+                <div className="mt-8 pt-6 border-t border-white/5">
+                  <div className="flex flex-col items-center">
+                    <h4 className="text-[8px] font-display font-bold tracking-[0.3em] text-white/30 uppercase mb-4">
+                      STRATEGIC PARTNERSHIPS
+                    </h4>
+
+                    <motion.div 
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 rounded-full bg-accent/5 border border-accent/20 hover:bg-accent/10 transition-all cursor-pointer group"
+                    >
+                      <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-white shadow-[0_0_15px_rgba(255,45,45,0.4)]">
+                        <Mail className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-[7px] font-bold text-accent/80 uppercase tracking-widest">Talk to Manager</span>
+                        <span className="text-xs font-display font-bold text-white group-hover:text-accent transition-colors">
+                          shiezoai@gmail.com
+                        </span>
+                      </div>
+                      <div className="ml-auto">
+                        <div className="px-2 py-0.5 rounded-md bg-accent/20 text-[7px] font-bold text-accent border border-accent/30 uppercase">Fast</div>
+                      </div>
+                    </motion.div>
                   </div>
-                  <span className="text-xs font-display text-white/80 group-hover:text-white transition-colors">
-                    shiezoai@gmail.com
-                  </span>
                 </div>
               </div>
             </motion.div>

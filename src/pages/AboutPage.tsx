@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Brain, Zap, Lightbulb, Rocket, Instagram, Globe } from 'lucide-react';
+import { ArrowLeft, Brain, Zap, Lightbulb, Rocket, Instagram, Globe, Facebook, Linkedin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const SectionHeader = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
@@ -189,15 +189,44 @@ const AboutPage: React.FC = () => {
              className="flex flex-col items-center space-y-6"
           >
             <SectionHeader icon={<Globe className="w-6 h-6" />} title="Connect with SHIEZO AI" />
-            <div className="flex flex-col md:flex-row gap-4 w-full">
-              <a href="https://shiezo.vercel.app" className="flex-1 flex items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
-                <Globe className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">shiezo.vercel.app</span>
-              </a>
-              <a href="https://instagram.com/hey.iam.shivamm" target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
-                <Instagram className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium">@hey.iam.shivamm</span>
-              </a>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+              {[
+                { 
+                  label: "shiezo.vercel.app", 
+                  href: "https://shiezo.vercel.app", 
+                  icon: <Globe className="w-4 h-4 text-accent" />,
+                  external: true
+                },
+                { 
+                  label: "@hey.iam.shivamm", 
+                  href: "https://instagram.com/hey.iam.shivamm", 
+                  icon: <Instagram className="w-4 h-4 text-accent" />,
+                  external: true
+                },
+                { 
+                  label: "SHIEZO AI Facebook", 
+                  href: "https://www.facebook.com/share/1A4ZzqzBQS/", 
+                  icon: <Facebook className="w-4 h-4 text-accent" />,
+                  external: true
+                },
+                { 
+                  label: "Shivam LinkedIn", 
+                  href: "https://www.linkedin.com/in/shivam-1ab814403?utm_source=share_via&utm_content=profile&utm_medium=member_android", 
+                  icon: <Linkedin className="w-4 h-4 text-accent" />,
+                  external: true
+                }
+              ].map((link, idx) => (
+                <a 
+                  key={idx}
+                  href={link.href} 
+                  target={link.external ? "_blank" : undefined} 
+                  rel={link.external ? "noopener noreferrer" : undefined} 
+                  className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group"
+                >
+                  {link.icon}
+                  <span className="text-sm font-medium group-hover:text-accent transition-colors">{link.label}</span>
+                </a>
+              ))}
             </div>
           </motion.div>
 
