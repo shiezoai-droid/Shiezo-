@@ -23,6 +23,34 @@
   .red-glow {
     box-shadow: 0 0 20px rgba(255, 45, 45, 0.2);
   }
+
+  /* Golden Moving Border Animation */
+  .animate-golden-border {
+    position: relative;
+    overflow: hidden;
+  }
+  .animate-golden-border::after {
+    content: "";
+    position: absolute;
+    inset: -200%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 90deg,
+      #FFD700 180deg,
+      transparent 270deg,
+      transparent 360deg
+    );
+    animation: rotate-golden 4s linear infinite;
+    z-index: 1;
+    filter: blur(8px);
+    pointer-events: none;
+  }
+  
+  @keyframes rotate-golden {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
   .red-glow-border {
     border: 1px solid rgba(255, 45, 45, 0.3);
     box-shadow: 0 0 15px rgba(255, 45, 45, 0.1);

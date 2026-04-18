@@ -30,7 +30,7 @@ const AboutPage: React.FC = () => {
       </div>
 
       {/* Navigation */}
-      <div className="max-w-4xl mx-auto px-6 pt-10 pb-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 pt-4 pb-4 relative z-10">
         <motion.button
           whileHover={{ x: -5, color: "#FF2D2D" }}
           whileTap={{ scale: 0.95 }}
@@ -42,9 +42,9 @@ const AboutPage: React.FC = () => {
         </motion.button>
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 pb-20 relative z-10 flex flex-col items-center">
+      <div className="max-w-2xl mx-auto px-6 pb-2 relative z-10 flex flex-col items-center">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -72,7 +72,7 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Content Body */}
-        <div className="w-full space-y-16">
+        <div className="w-full space-y-10">
           {/* Main Context */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -93,23 +93,52 @@ const AboutPage: React.FC = () => {
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative p-8 rounded-[32px] bg-white/5 border border-white/10 shadow-2xl overflow-hidden group"
+            className="relative p-[1.5px] rounded-[32px] bg-black shadow-2xl overflow-hidden group mb-6 flex items-center justify-center animate-golden-border max-w-sm mx-auto"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[60px] rounded-full -mr-16 -mt-16 group-hover:bg-accent/20 transition-all duration-700" />
-            <SectionHeader icon={<Brain className="w-6 h-6" />} title="Founder of SHIEZO AI" />
-            <div className="space-y-4">
-              <p className="text-accent text-sm font-bold tracking-[0.1em] uppercase">
-                Shivam — AI Expert, Developer, and Student Entrepreneur
-              </p>
-              <div className="h-[1px] w-full bg-gradient-to-r from-accent/40 via-accent/20 to-transparent my-4" />
-              <p className="text-white/70 text-sm leading-relaxed">
-                His journey began from real-life struggles. While managing school as a Class 12 student and working part-time in delivery jobs, he experienced the challenges faced by small sellers.
-              </p>
-              <p className="text-white/70 text-sm leading-relaxed font-medium">
-                Instead of stopping, he turned that struggle into an idea — and that idea became SHIEZO AI.
-              </p>
-              <div className="pt-4 text-center italic text-white/40 text-sm">
-                "Anyone can build something powerful, even from the toughest situations."
+            {/* Inner Content Card (Black) */}
+            <div className="w-full h-full bg-[#050505] rounded-[31px] p-5 relative z-10 overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[60px] rounded-full -mr-16 -mt-16 group-hover:bg-accent/20 transition-all duration-700" />
+              <SectionHeader icon={<Brain className="w-5 h-5" />} title="Founder of SHIEZO AI" />
+              <div className="space-y-4">
+                <p className="text-accent text-[10px] font-bold tracking-[0.1em] uppercase">
+                  Shivam — AI Expert, Developer, and Student Entrepreneur
+                </p>
+                <div className="h-[1px] w-full bg-gradient-to-r from-accent/40 via-accent/20 to-transparent my-1" />
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {[
+                    { label: "Student Hustler", text: "Built SHIEZO AI in Class 12." },
+                    { label: "Delivery + Study", text: "Balanced work & academics." },
+                    { label: "Real Struggle", text: "Experienced seller pain points." },
+                    { label: "AI Visionary", text: "Innovating e-commerce." }
+                  ].map((point, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 + (i * 0.1), duration: 0.5 }}
+                      whileHover={{ scale: 1.02, borderColor: "rgba(255, 215, 0, 0.4)" }}
+                      className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.03] border border-white/5 transition-all group/point shadow-[0_0_0px_rgba(255,215,0,0)] hover:shadow-[0_0_15px_rgba(255,215,0,0.1)]"
+                    >
+                      <div className="w-1 h-1 rounded-full bg-accent mt-1.5 group-hover/point:bg-yellow-400 group-hover/point:scale-125 transition-all" />
+                      <div>
+                        <p className="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5 group-hover/point:text-yellow-400 transition-colors">{point.label}</p>
+                        <p className="text-white/30 text-[8px] leading-tight group-hover/point:text-white/50 transition-colors italic">{point.text}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8 }}
+                  className="pt-2 text-center italic text-white/30 text-[9px]"
+                >
+                  "Powerful results, even from tough situations."
+                </motion.div>
               </div>
             </div>
           </motion.div>
@@ -190,7 +219,7 @@ const AboutPage: React.FC = () => {
           >
             <SectionHeader icon={<Globe className="w-6 h-6" />} title="Connect with SHIEZO AI" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-              {[
+              { [
                 { 
                   label: "shiezo.vercel.app", 
                   href: "https://shiezo.vercel.app", 
@@ -216,16 +245,24 @@ const AboutPage: React.FC = () => {
                   external: true
                 }
               ].map((link, idx) => (
-                <a 
+                <motion.a 
                   key={idx}
                   href={link.href} 
                   target={link.external ? "_blank" : undefined} 
                   rel={link.external ? "noopener noreferrer" : undefined} 
-                  className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group"
+                  whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.08)" }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300 group relative overflow-hidden"
                 >
-                  {link.icon}
-                  <span className="text-sm font-medium group-hover:text-accent transition-colors">{link.label}</span>
-                </a>
+                  <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <motion.div 
+                    whileHover={{ rotate: 10, scale: 1.1 }}
+                    className="relative z-10"
+                  >
+                    {link.icon}
+                  </motion.div>
+                  <span className="text-sm font-medium group-hover:text-accent transition-colors relative z-10 tracking-tight">{link.label}</span>
+                </motion.a>
               ))}
             </div>
           </motion.div>
@@ -235,17 +272,64 @@ const AboutPage: React.FC = () => {
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center pt-10 border-t border-white/10 pb-10"
+            className="text-center pt-10 border-t border-white/10"
           >
             <p className="text-white/60 text-sm mb-6 leading-relaxed italic">
               "SHIEZO AI is currently in its early stage, but the foundation is strong. The mission is clear. The vision is big. And this is just the beginning."
             </p>
-            <div className="space-y-1">
-              <p className="text-white font-bold text-base tracking-tight">— Shivam</p>
-              <p className="text-accent text-[8px] font-bold uppercase tracking-[0.3em]">AI Expert | Developer | Founder | Entrepreneur</p>
+            <div className="space-y-3 mb-4">
+              <motion.div
+                animate={{ 
+                  opacity: [0.7, 1, 0.7],
+                  scale: [1, 1.02, 1],
+                  textShadow: ["0 0 0px rgba(255,255,255,0)", "0 0 10px rgba(255,255,255,0.3)", "0 0 0px rgba(255,255,255,0)"]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <p className="text-white font-black text-lg tracking-[0.2em] uppercase">~ SHIVAM</p>
+              </motion.div>
+              
+              <div className="flex flex-wrap justify-center gap-x-2 gap-y-1">
+                {["AI Expert", "Developer", "Founder", "Entrepreneur"].map((role, i) => (
+                  <motion.span
+                    key={role}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 + (i * 0.2), duration: 0.5 }}
+                    className="flex items-center gap-2"
+                  >
+                    <span className="text-accent text-[8px] font-bold uppercase tracking-[0.3em]">{role}</span>
+                    {i < 3 && <span className="text-white/10 text-[8px]">|</span>}
+                  </motion.span>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
+
+        {/* Minimal Footer */}
+        <motion.footer 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="w-full mt-4 pt-6 pb-2 border-t border-white/5 flex flex-col items-center gap-4 relative overflow-hidden"
+        >
+          {/* Decorative Footer Glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+          
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-[10px] font-display font-medium uppercase tracking-[0.4em] text-white/20">
+              SHIEZO AI © 2026
+            </span>
+            <div className="flex items-center gap-3">
+              <div className="h-[1px] w-8 bg-white/10" />
+              <div className="w-1 h-1 rounded-full bg-accent animate-pulse shadow-[0_0_8px_#FF2D2D]" />
+              <div className="h-[1px] w-8 bg-white/10" />
+            </div>
+          </div>
+          <p className="text-[8px] text-white/10 font-bold uppercase tracking-widest">Empowering Next-Gen Resellers</p>
+        </motion.footer>
       </div>
     </motion.div>
   );

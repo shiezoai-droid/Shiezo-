@@ -11,220 +11,132 @@ import AboutPage from "./pages/AboutPage";
 
 const WhatIsShiezoPage = ({ onClose }: { onClose: () => void }) => {
   return (
-    <motion.div
-      initial={{ x: "100%" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100%" }}
-      transition={{ type: "spring", damping: 30, stiffness: 300 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-10"
-    >
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="absolute inset-0 bg-black/80 backdrop-blur-2xl"
+        className="absolute inset-0 bg-black/80 backdrop-blur-md"
       />
       
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ 
-          scale: 1, 
-          opacity: 1,
-          y: [0, -8, 0]
+        initial={{ opacity: 0, scale: 0.9, y: 30, rotateX: 15 }}
+        animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+        exit={{ 
+          opacity: 0, 
+          scale: 0.9, 
+          y: 20,
+          rotateX: -10,
+          filter: "blur(12px)",
+          transition: { duration: 0.25, ease: "easeIn" }
         }}
-        exit={{ scale: 0.9, opacity: 0 }}
         transition={{ 
-          scale: { delay: 0.1 },
-          opacity: { delay: 0.1 },
-          y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+          type: "spring", 
+          damping: 20, 
+          stiffness: 250,
+          rotateX: { duration: 0.4 }
         }}
-        className="relative w-full max-w-2xl bg-[#0A0A0A] text-white rounded-[26px] overflow-hidden border border-accent/30 shadow-[0_0_50px_rgba(255,45,45,0.15)] flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-[380px] bg-[#0D0D0D] rounded-[32px] p-5 border border-accent/40 shadow-[0_0_60px_rgba(255,45,45,0.15)] overflow-hidden flex flex-col max-h-[85vh]"
+        style={{ perspective: "1000px" }}
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Animated Background Glow */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.05, 0.1, 0.05]
-            }}
-            transition={{ duration: 8, repeat: Infinity }}
-            className="absolute -top-1/2 -left-1/2 w-full h-full bg-accent/20 blur-[120px] rounded-full"
-          />
-          {/* Graphic Grid Overlay */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
-        </div>
+        {/* Background Accent Glows */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[60px] rounded-full -mr-16 -mt-16" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/5 blur-[50px] rounded-full -ml-16 -mb-16" />
 
-        {/* Close Button */}
         <motion.button 
-          onClick={onClose}
-          whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 45, 45, 0.2)" }}
+          whileHover={{ scale: 1.1, rotate: 90, backgroundColor: "rgba(255,45,45,0.2)" }}
           whileTap={{ scale: 0.9 }}
-          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 transition-all z-[60] border border-white/10 hover:border-accent/40"
+          onClick={onClose}
+          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 transition-colors text-white/60 hover:text-white z-20"
         >
-          <X className="w-5 h-5 text-white/70" />
+          <X className="w-4 h-4" />
         </motion.button>
 
-        <div className="p-8 md:p-12 overflow-y-auto custom-scrollbar relative z-10">
-          <div className="text-center mb-12">
+        <div className="relative z-10 flex flex-col min-h-0 h-full">
+          <div className="flex flex-col items-center mb-6 flex-shrink-0">
             <motion.div
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", delay: 0.2 }}
-              className="inline-block mb-4 p-3 rounded-2xl bg-accent/10 border border-accent/20 shadow-[0_0_20px_rgba(255,45,45,0.1)]"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", delay: 0.1 }}
+              className="w-12 h-12 rounded-xl bg-accent/20 border border-accent/40 flex items-center justify-center text-accent mb-3 shadow-[0_0_20px_rgba(255,45,45,0.3)]"
             >
-              <HelpCircle className="w-8 h-8 text-accent" />
+              <HelpCircle className="w-6 h-6" />
             </motion.div>
-            <motion.h2 
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-2 text-glow"
-            >
-              What is SHIEZO AI?
-            </motion.h2>
-            <motion.p 
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-white/40 font-medium tracking-wide uppercase text-[10px]"
-            >
-              Your AI-powered selling assistant
-            </motion.p>
+            <h3 className="text-xl font-display font-bold tracking-tighter text-white">What is SHIEZO AI?</h3>
+            <p className="text-[9px] text-white/40 uppercase tracking-[0.3em] font-medium mt-1">Your AI-powered selling assistant</p>
           </div>
 
-          <div className="space-y-12">
+          <div className="flex-grow overflow-y-auto custom-scrollbar space-y-3 pr-2 min-h-0 scroll-smooth">
             {[
-              { icon: <AlertTriangle className="w-6 h-6" />, title: "Problem", content: "Most beginners don’t know what to sell or how to sell online", color: "text-amber-500" },
-              { icon: <Brain className="w-6 h-6" />, title: "Solution", content: "SHIEZO AI helps you find products, create content, and start selling instantly", color: "text-blue-500" },
               { 
-                icon: <Search className="w-6 h-6" />, 
-                title: "What it does", 
-                items: ["Finds trending products", "Generates product details", "Creates sales captions", "Gives growth suggestions"],
-                color: "text-purple-500"
+                icon: <AlertTriangle className="w-4 h-4" />, 
+                title: "The Problem", 
+                content: "Beginner resellers struggle to find viral products and create conversion-focused content.", 
+                accent: "border-amber-500/30 bg-amber-500/5 text-amber-500"
               },
               { 
-                icon: <ZapIcon className="w-6 h-6" />, 
-                title: "How it works", 
-                steps: ["Find product", "Generate details", "Create caption", "Start selling"],
-                color: "text-yellow-500"
+                icon: <Brain className="w-4 h-4" />, 
+                title: "The Solution", 
+                content: "SHIEZO AI automates product discovery and content creation using advanced AI models.", 
+                accent: "border-blue-500/30 bg-blue-500/5 text-blue-500"
               },
               { 
-                icon: <Target className="w-6 h-6" />, 
-                title: "Who is it for", 
-                items: ["Meesho sellers", "Amazon beginners", "Flipkart resellers", "Students / side hustlers"],
-                color: "text-accent"
+                icon: <ZapIcon className="w-4 h-4" />, 
+                title: "The Impact", 
+                content: "Scales your business from zero to pro across Meesho, Amazon, and Flipkart instantly.", 
+                accent: "border-purple-500/30 bg-purple-500/5 text-purple-500"
               }
             ].map((section, idx) => (
-              <motion.div 
+              <motion.div
                 key={section.title}
-                initial={{ x: -30, opacity: 0, filter: "blur(10px)" }}
-                whileInView={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.8,
-                  delay: 0.5 + idx * 0.1,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className="flex gap-6 group"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 + idx * 0.1 }}
+                className={`p-4 rounded-2xl border ${section.accent} flex gap-4 items-start group hover:bg-white/[0.02] transition-colors`}
               >
-                <div className="flex-shrink-0 relative">
-                  <motion.div 
-                    whileHover={{ scale: 1.15, rotate: 8 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`w-16 h-16 rounded-[22px] bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center relative z-10 group-hover:border-accent/60 transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]`}
-                  >
-                    {/* Graphic Glow Layer */}
-                    <div className={`absolute inset-0 bg-current opacity-0 group-hover:opacity-20 blur-2xl rounded-full transition-opacity duration-500 ${section.color}`} />
-                    <div className={`absolute -inset-[1px] bg-gradient-to-br from-white/20 to-transparent rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                    
-                    <motion.div 
-                      animate={{ 
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 5, 0]
-                      }}
-                      transition={{ 
-                        duration: 4, 
-                        repeat: Infinity, 
-                        ease: "easeInOut",
-                        delay: idx * 0.5
-                      }}
-                      className={`${section.color} group-hover:scale-110 transition-transform duration-500 relative z-20 drop-shadow-[0_0_8px_currentColor]`}
-                    >
-                      {section.icon}
-                    </motion.div>
-                  </motion.div>
-                  {idx < 4 && (
-                    <motion.div 
-                      initial={{ height: 0 }}
-                      whileInView={{ height: 40 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.8 + idx * 0.1, duration: 0.5 }}
-                      className="absolute top-16 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-accent/40 via-accent/10 to-transparent" 
-                    />
-                  )}
-                </div>
-                <div className="pt-2 flex-grow">
-                  <motion.h4 
-                    whileHover={{ x: 5 }}
-                    className="font-display font-bold text-base uppercase tracking-[0.2em] mb-3 flex items-center gap-3 text-white/90 group-hover:text-white transition-all duration-300"
-                  >
-                    <span className="group-hover:text-accent transition-colors">{section.title}</span>
-                    <div className="h-[1px] flex-grow bg-gradient-to-r from-accent/40 to-transparent origin-left scale-x-50 group-hover:scale-x-100 transition-transform duration-500" />
-                  </motion.h4>
-                  {section.content && <p className="text-white/50 text-sm leading-relaxed font-medium">{section.content}</p>}
-                  {section.items && (
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {section.items.map(item => (
-                        <li key={item} className="text-white/50 text-xs flex items-center gap-3 group/item">
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent/40 group-hover/item:bg-accent transition-colors" />
-                          <span className="group-hover/item:text-white/80 transition-colors">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {section.steps && (
-                    <div className="flex flex-wrap gap-4 mt-3">
-                      {section.steps.map((step, sIdx) => (
-                        <div key={step} className="flex items-center gap-3">
-                          <div className="relative">
-                            <span className="text-[10px] font-bold bg-accent/10 border border-accent/20 text-accent px-2.5 py-1 rounded-lg shadow-[0_0_10px_rgba(255,45,45,0.1)]">
-                              {sIdx + 1}
-                            </span>
-                          </div>
-                          <span className="text-xs text-white/50 font-bold uppercase tracking-tighter">{step}</span>
-                          {sIdx < section.steps.length - 1 && <ChevronRight className="w-4 h-4 text-white/10" />}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                <div className="mt-1">{section.icon}</div>
+                <div>
+                  <h4 className="text-[9px] font-bold uppercase tracking-widest mb-1">{section.title}</h4>
+                  <p className="text-[11px] leading-relaxed text-white/70">{section.content}</p>
                 </div>
               </motion.div>
             ))}
-          </div>
-        </div>
 
-        {/* Founder Footer */}
-        <div className="mt-auto p-8 border-t border-white/5 bg-white/[0.02] flex items-center justify-between relative z-10">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent to-red-900 p-[1px] shadow-[0_0_20px_rgba(255,45,45,0.2)]">
-              <div className="w-full h-full rounded-2xl bg-black flex items-center justify-center overflow-hidden">
-                <img src="https://picsum.photos/seed/shivam/100/100" alt="Shivam" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="p-5 rounded-[24px] bg-accent/5 border border-accent/20 text-center relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <h4 className="text-[10px] font-bold text-accent uppercase tracking-[0.2em] mb-3 relative z-10">Winning Workflow</h4>
+              <div className="flex items-center justify-between text-[8px] font-bold text-white/40 uppercase tracking-widest px-2 relative z-10">
+                <span>Find</span>
+                <ChevronRight className="w-3 h-3 text-accent" />
+                <span>Optimize</span>
+                <ChevronRight className="w-3 h-3 text-accent" />
+                <span>Caption</span>
+                <ChevronRight className="w-3 h-3 text-accent" />
+                <span>Sold</span>
               </div>
-            </div>
-            <div>
-              <p className="text-sm font-bold tracking-tight text-white/90">Founder – SHIEZO AI</p>
-              <p className="text-[10px] text-accent font-bold uppercase tracking-[0.2em]">~SHIVAM</p>
-            </div>
+            </motion.div>
           </div>
-          <div className="hidden md:block">
-            <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/30">
-              Est. 2024
-            </div>
+
+          <div className="mt-6 pt-6 border-t border-white/5 flex-shrink-0">
+             <motion.button
+               whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.95)" }}
+               whileTap={{ scale: 0.98 }}
+               onClick={onClose}
+               className="w-full py-3.5 rounded-2xl bg-white text-black font-display font-bold text-[10px] tracking-widest uppercase shadow-[0_0_20px_rgba(255,45,45,0.15)] transition-all"
+             >
+               Start Selling Now
+             </motion.button>
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -238,30 +150,57 @@ const MenuOverlay = ({ isOpen, onClose, onWhatIsClick }: { isOpen: boolean; onCl
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md pointer-events-auto"
           />
           <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-20 left-6 z-[70] w-64 bg-[#111111] rounded-2xl border border-white/10 p-2 shadow-2xl"
+            initial={{ opacity: 0, y: -20, scale: 0.95, rotateX: 10 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95, rotateX: -10, transition: { duration: 0.2 } }}
+            className="fixed top-24 left-6 md:left-[calc(50%-576px+24px)] z-[110] w-72 bg-[#0D0D0D]/90 backdrop-blur-2xl rounded-[32px] border border-white/10 p-2 shadow-[0_30px_60px_rgba(0,0,0,0.5)] pointer-events-auto overflow-hidden"
+            style={{ perspective: "1000px" }}
           >
-            <button
-              onClick={() => {
-                onWhatIsClick();
-                onClose();
-              }}
-              className="w-full flex items-center gap-4 px-4 py-4 rounded-xl hover:bg-white/5 transition-all duration-300 group text-left relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-500 relative z-10 border border-accent/20 group-hover:border-accent/40 shadow-[0_0_15px_rgba(255,45,45,0.1)]">
-                <HelpCircle className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
-              </div>
-              <div className="relative z-10">
-                <p className="text-sm font-bold text-white/90 group-hover:text-white transition-colors tracking-tight">What is SHIEZO AI</p>
-                <p className="text-[9px] text-accent/60 font-bold uppercase tracking-[0.2em]">Learn more</p>
-              </div>
-            </button>
+            {/* Subtle Gradient Glow inside menu */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[50px] rounded-full -mr-16 -mt-16 pointer-events-none" />
+            
+            <div className="relative z-10 flex flex-col gap-1">
+              <p className="px-4 pt-3 pb-2 text-[10px] font-bold text-white/30 uppercase tracking-[0.3em]">Directory</p>
+              
+              <motion.button
+                whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.03)" }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  onWhatIsClick();
+                  onClose();
+                }}
+                className="w-full flex items-center gap-4 px-3 py-3 rounded-2xl transition-all duration-300 group text-left relative overflow-hidden active:bg-white/10"
+              >
+                <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center border border-accent/20 group-hover:border-accent group-hover:bg-accent/30 transition-all shadow-[0_0_15px_rgba(255,45,45,0.1)]">
+                  <HelpCircle className="w-5 h-5 text-accent shadow-accent drop-shadow-[0_0_10px_rgba(255,45,45,0.5)]" />
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-sm font-bold text-white group-hover:text-accent transition-colors">What is SHIEZO AI</p>
+                  <p className="text-[9px] text-white/40 font-bold uppercase tracking-widest mt-0.5">Learn more about us</p>
+                </div>
+              </motion.button>
+              
+              <div className="h-[1px] bg-white/5 mx-3 my-1" />
+              
+              <Link to="/about" onClick={onClose}>
+                <motion.button
+                  whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.03)" }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center gap-4 px-3 py-3 rounded-2xl transition-all duration-300 group text-left relative overflow-hidden"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-white/30 transition-all">
+                    <Rocket className="w-5 h-5 text-white/50 group-hover:text-white" />
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-sm font-bold text-white/70 group-hover:text-white transition-colors">About Founded</p>
+                    <p className="text-[9px] text-white/30 font-bold uppercase tracking-widest mt-0.5">The story of Shivam</p>
+                  </div>
+                </motion.button>
+              </Link>
+            </div>
           </motion.div>
         </>
       )}
@@ -607,59 +546,72 @@ function LandingPage() {
             </div>
 
             {/* HEADER */}
-            <motion.header 
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between backdrop-blur-md bg-black/40 border-b border-white/5"
-            >
-              {/* Menu Button (ChatGPT Style) */}
-              <motion.button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
-                whileTap={{ scale: 0.96 }}
-                className="w-10 h-10 rounded-lg flex flex-col items-center justify-center gap-1.5 transition-colors"
-              >
-                <motion.div 
-                  animate={isMenuOpen ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
-                  className="w-5 h-[1.5px] bg-white/80" 
-                />
-                <motion.div 
-                  animate={isMenuOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
-                  className="w-5 h-[1.5px] bg-white/80" 
-                />
-              </motion.button>
-
+            <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-6 pointer-events-none">
+              {/* Menu Overlay Rooted separately to avoid clipping */}
               <MenuOverlay 
                 isOpen={isMenuOpen} 
                 onClose={() => setIsMenuOpen(false)} 
                 onWhatIsClick={() => setIsWhatIsPageOpen(true)} 
               />
               
-              {/* Logo Center */}
-              <div className="flex items-center justify-center">
-                {!logoError ? (
-                  <img 
-                    src="input_file_0.png" 
-                    alt="SHIEZO AI" 
-                    className="h-7 md:h-9 object-contain mix-blend-screen"
-                    onError={() => setLogoError(true)}
-                    referrerPolicy="no-referrer"
+              <motion.header 
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                className="pointer-events-auto w-full max-w-6xl backdrop-blur-2xl bg-black/40 border border-white/10 rounded-[26px] px-6 py-3 flex items-center justify-between shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative overflow-hidden group"
+              >
+                {/* Header Background Glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                {/* Menu Button (ChatGPT Style) */}
+                <motion.button 
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                  whileTap={{ scale: 0.96 }}
+                  className="w-10 h-10 rounded-xl flex flex-col items-center justify-center gap-1.5 transition-all duration-300 relative z-10 border border-transparent hover:border-white/10"
+                >
+                  <motion.div 
+                    animate={isMenuOpen ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
+                    className="w-5 h-[1.5px] bg-white/80" 
                   />
-                ) : (
-                  <span className="font-display font-bold text-lg tracking-[0.2em] uppercase">SHIEZO AI</span>
-                )}
-              </div>
+                  <motion.div 
+                    animate={isMenuOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
+                    className="w-5 h-[1.5px] bg-white/80" 
+                  />
+                </motion.button>
+                
+                {/* Logo Center */}
+                <div className="flex items-center justify-center relative z-10">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    {!logoError ? (
+                      <img 
+                        src="input_file_0.png" 
+                        alt="SHIEZO AI" 
+                        className="h-7 md:h-8 object-contain mix-blend-screen drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+                        onError={() => setLogoError(true)}
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <span className="font-display font-bold text-lg tracking-[0.2em] uppercase text-glow">SHIEZO AI</span>
+                    )}
+                  </motion.div>
+                </div>
 
-              {/* Right Spacer for alignment */}
-              <div className="w-10" />
-            </motion.header>
+                {/* Right Spacer (Follow Us/Contact Logic could go here eventually) */}
+                <div className="w-10 flex justify-end">
+                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_10px_#FF2D2D]" />
+                </div>
+              </motion.header>
+            </div>
 
-            <main className="flex-grow pt-20">
+            <main className="flex-grow pt-4">
               {/* HERO SECTION */}
               <motion.section 
                 style={{ opacity: heroOpacity, scale: heroScale }}
-                className="relative h-[90vh] flex flex-col items-center justify-center text-center px-6 z-10"
+                className="relative min-h-[80vh] flex flex-col items-center justify-start pt-32 md:pt-48 text-center px-6 z-10"
               >
                 <div className="max-w-4xl">
                   <motion.div
@@ -767,7 +719,7 @@ function LandingPage() {
               </section>
 
         {/* IDEA SECTION */}
-        <section className="relative py-12 flex items-center justify-center bg-black z-10 overflow-hidden">
+        <section className="relative py-8 flex items-center justify-center bg-black z-10 overflow-hidden">
           <motion.div 
             style={{ y: bgY1 }}
             initial={{ scale: 0.8, opacity: 0 }}
@@ -788,7 +740,7 @@ function LandingPage() {
         </section>
 
         {/* CORE IDEA BLOCK */}
-        <section className="py-10 px-6 bg-black z-10 relative">
+        <section className="py-6 px-6 bg-black z-10 relative">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
@@ -833,7 +785,7 @@ function LandingPage() {
         </section>
 
         {/* FEATURES (HORIZONTAL) */}
-        <section className="py-12 bg-black z-10 relative overflow-hidden">
+        <section className="py-8 bg-black z-10 relative overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-accent/5 blur-[120px] rounded-full -z-10 opacity-20" />
           
           <FadeInSection className="mb-8 px-6 text-center">
@@ -897,7 +849,7 @@ function LandingPage() {
         </section>
 
         {/* FUTURE VISION */}
-        <section className="py-12 px-6 bg-black z-10 relative text-center overflow-hidden">
+        <section className="py-8 px-6 bg-black z-10 relative text-center overflow-hidden">
           <motion.div 
             style={{ y: bgY1, opacity: 0.1 }}
             className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-accent/10 blur-[100px] rounded-full -z-10"
@@ -971,7 +923,7 @@ function LandingPage() {
         </section>
 
         {/* CONTACT SECTION */}
-        <section className="py-12 px-6 bg-black z-10 relative text-center">
+        <section className="py-8 px-6 bg-black z-10 relative text-center">
           <FadeInSection>
             <h2 className="text-xl md:text-2xl font-display font-bold tracking-tight mb-4 text-glow">
               IF YOU ARE INTERESTED, CONTACT US
@@ -1278,6 +1230,7 @@ function LandingPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
       <style>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
@@ -1285,6 +1238,22 @@ function LandingPage() {
         .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 45, 45, 0.3);
+          border-radius: 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 45, 45, 0.5);
+        }
+        .custom-scrollbar {
+          scroll-behavior: smooth;
         }
       `}</style>
     </div>
