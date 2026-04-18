@@ -114,16 +114,24 @@ const AboutPage: React.FC = () => {
                   ].map((point, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0, scale: 0.9, boxShadow: "0 0 0px rgba(255, 215, 0, 0)" }}
+                      whileInView={{ 
+                        opacity: 1, 
+                        scale: 1,
+                        boxShadow: ["0 0 0px rgba(111, 215, 0, 0)", "0 0 15px rgba(255, 215, 0, 0.3)", "0 0 0px rgba(255, 215, 0, 0)"]
+                      }}
                       viewport={{ once: true }}
-                      transition={{ delay: 0.3 + (i * 0.1), duration: 0.5 }}
+                      transition={{ 
+                        delay: 0.4 + (i * 0.25), 
+                        duration: 0.8,
+                        boxShadow: { duration: 1, delay: 0.6 + (i * 0.25) }
+                      }}
                       whileHover={{ scale: 1.02, borderColor: "rgba(255, 215, 0, 0.4)" }}
-                      className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.03] border border-white/5 transition-all group/point shadow-[0_0_0px_rgba(255,215,0,0)] hover:shadow-[0_0_15px_rgba(255,215,0,0.1)]"
+                      className="flex items-start gap-2 p-3 rounded-xl bg-white/[0.03] border border-white/5 transition-all group/point hover:shadow-[0_0_15px_rgba(255,215,0,0.1)]"
                     >
                       <div className="w-1 h-1 rounded-full bg-accent mt-1.5 group-hover/point:bg-yellow-400 group-hover/point:scale-125 transition-all" />
                       <div>
-                        <p className="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5 group-hover/point:text-yellow-400 transition-colors">{point.label}</p>
+                        <p className="text-white font-bold text-[9px] uppercase tracking-widest mb-0.5 group-hover/point:text-yellow-400 transition-colors uppercase">{point.label}</p>
                         <p className="text-white/30 text-[8px] leading-tight group-hover/point:text-white/50 transition-colors italic">{point.text}</p>
                       </div>
                     </motion.div>
@@ -144,27 +152,54 @@ const AboutPage: React.FC = () => {
           </motion.div>
 
           {/* Vision & Mission */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="md:grid md:grid-cols-2 gap-6 space-y-6 md:space-y-0"
-          >
-            <div className="p-6 rounded-3xl bg-[#080808] border border-white/5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-4">
-                <Zap className="w-6 h-6" />
-              </div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-2 text-white/50">Vision</h4>
-              <p className="text-white text-sm font-medium">To change the way of selling using AI.</p>
-            </div>
-            <div className="p-6 rounded-3xl bg-[#080808] border border-white/5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-4">
-                <TargetIcon className="w-6 h-6" />
-              </div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] mb-2 text-white/50">Mission</h4>
-              <p className="text-white/70 text-xs">To empower students, housewives, and small entrepreneurs to start and scale their online business using advanced AI tools without technical knowledge.</p>
-            </div>
-          </motion.div>
+          <div className="space-y-4 py-2">
+            {[
+              { 
+                type: "Vision", 
+                icon: <Zap className="w-5 h-5" />, 
+                title: "Our Vision", 
+                desc: "TO CHANGE THE WAY OF SELLING USING AI.",
+                color: "from-accent/20",
+                delay: 0,
+                dir: -50
+              },
+              { 
+                type: "Mission", 
+                icon: <TargetIcon className="w-5 h-5" />, 
+                title: "Our Mission", 
+                desc: "TO EMPOWER STUDENTS, HOUSEWIVES, AND SMALL ENTREPRENEURS TO SCALE USING ADVANCED AI.",
+                color: "from-blue-500/20",
+                delay: 0.2,
+                dir: 50
+              }
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ x: item.dir, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: item.delay }}
+                whileHover={{ scale: 1.01, x: 5 }}
+                className="relative p-4 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-accent/30 transition-all group overflow-hidden flex items-center gap-5"
+              >
+                {/* Glow Background */}
+                <div className="absolute inset-0 bg-accent/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="w-12 h-12 shrink-0 rounded-xl bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-lg">
+                  {item.icon}
+                </div>
+                
+                <div className="flex-1">
+                  <h4 className="text-[8px] font-black uppercase tracking-[0.4em] text-accent/60 mb-1">{item.title}</h4>
+                  <p className="text-white text-[11px] font-bold tracking-tight leading-snug uppercase">
+                    {item.desc}
+                  </p>
+                </div>
+
+                <div className="w-1 h-1 rounded-full bg-accent/20 group-hover:bg-accent transition-all" />
+              </motion.div>
+            ))}
+          </div>
 
           {/* Core Features */}
           <motion.div
@@ -173,17 +208,36 @@ const AboutPage: React.FC = () => {
              viewport={{ once: true }}
           >
             <SectionHeader icon={<Lightbulb className="w-6 h-6" />} title="Core Features of SHIEZO AI" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
                 { title: "Trending Product Finder", desc: "Discover high-demand and viral products instantly using AI insights." },
                 { title: "AI Product Details Generator", desc: "Create professional titles, descriptions, and highlights that increase conversions." },
                 { title: "Sales Caption Generator", desc: "Generate engaging captions with trending hashtags for social media marketing." },
                 { title: "Market Intelligence", desc: "Powered by advanced AI models to analyze trends and winning niches in real time." }
               ].map((f, i) => (
-                <div key={i} className="p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-accent/40 transition-all group">
-                   <h5 className="text-white font-bold text-sm mb-1 group-hover:text-accent transition-colors">{f.title}</h5>
-                   <p className="text-white/40 text-[11px] leading-relaxed">{f.desc}</p>
-                </div>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9, boxShadow: "0 0 0px rgba(255, 215, 0, 0)" }}
+                  whileInView={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    boxShadow: ["0 0 0px rgba(255, 215, 0, 0)", "0 0 15px rgba(255, 215, 0, 0.2)", "0 0 0px rgba(255, 215, 0, 0)"]
+                  }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    delay: 0.2 + (i * 0.2), 
+                    duration: 0.8,
+                    boxShadow: { duration: 1, delay: 0.4 + (i * 0.2) }
+                  }}
+                  whileHover={{ scale: 1.02, borderColor: "rgba(255, 215, 0, 0.3)" }}
+                  className="p-5 rounded-2xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all group relative overflow-hidden"
+                >
+                   <div className="flex items-center gap-3 mb-2">
+                     <div className="w-1.5 h-1.5 rounded-full bg-accent group-hover:bg-yellow-400 group-hover:scale-125 transition-all shadow-[0_0_8px_rgba(255,45,45,0.6)]" />
+                     <h5 className="text-white font-bold text-xs uppercase tracking-widest group-hover:text-yellow-400 transition-colors">{f.title}</h5>
+                   </div>
+                   <p className="text-white/40 text-[10px] leading-relaxed pl-4.5">{f.desc}</p>
+                </motion.div>
               ))}
             </div>
           </motion.div>

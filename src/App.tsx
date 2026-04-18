@@ -750,33 +750,39 @@ function LandingPage() {
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.9, boxShadow: "0 0 0px rgba(255, 215, 0, 0)" }}
+                  whileInView={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    boxShadow: ["0 0 0px rgba(255, 215, 0, 0)", "0 0 20px rgba(255, 215, 0, 0.3)", "0 0 0px rgba(255, 215, 0, 0)"]
+                  }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -5 }}
-                  className="relative group p-[1px] rounded-[24px] overflow-hidden"
+                  transition={{ 
+                    delay: 0.1 + (i * 0.2), 
+                    duration: 0.8,
+                    boxShadow: { duration: 1.2, delay: 0.3 + (i * 0.2) }
+                  }}
+                  whileHover={{ y: -5, scale: 1.02, borderColor: "rgba(255, 215, 0, 0.4)" }}
+                  className="relative group p-[1.5px] rounded-[24px] overflow-hidden animate-golden-border"
                 >
-                  {/* Moving Red Glow Border */}
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-20 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-
-                  <div className="relative bg-[#080808] p-6 rounded-[23px] flex flex-col items-center text-center overflow-hidden z-10">
+                  <div className="relative bg-[#050505] p-6 rounded-[23px] flex flex-col items-center text-center overflow-hidden z-10 min-h-[160px] justify-center">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 blur-[40px] rounded-full -mr-12 -mt-12 group-hover:bg-accent/10 transition-all duration-700" />
+                    
                     <motion.div 
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white mb-4 relative z-10 border border-white/10 group-hover:border-accent/40 transition-all duration-500 shadow-xl"
                     >
                       <div className="absolute inset-0 bg-accent/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative z-20 text-accent group-hover:text-white transition-colors drop-shadow-[0_0_8px_rgba(255,45,45,0.6)]">
+                      <div className="relative z-20 text-accent group-hover:text-yellow-400 transition-colors drop-shadow-[0_0_8px_rgba(255,45,45,0.6)]">
                         {item.icon}
                       </div>
                     </motion.div>
                     
-                    <h3 className="font-display text-base font-bold tracking-[0.2em] uppercase mb-2 text-white/90 group-hover:text-white transition-colors">{item.title}</h3>
-                    <p className="text-white/40 text-[10px] font-medium tracking-wide leading-relaxed max-w-[180px]">{item.desc}</p>
+                    <h3 className="font-display text-base font-bold tracking-[0.2em] uppercase mb-2 text-white/90 group-hover:text-yellow-400 transition-colors">{item.title}</h3>
+                    <p className="text-white/40 text-[10px] font-medium tracking-wide leading-relaxed max-w-[180px] group-hover:text-white/60 transition-colors italic">{item.desc}</p>
+                    
+                    {/* Corner Glow */}
+                    <div className="absolute bottom-0 left-0 w-16 h-16 bg-yellow-400/5 blur-[30px] rounded-full -ml-8 -mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   </div>
                 </motion.div>
               ))}
@@ -810,38 +816,43 @@ function LandingPage() {
             ].map((feature, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, scale: 0.9, boxShadow: "0 0 0px rgba(255, 215, 0, 0)" }}
+                whileInView={{ 
+                  opacity: 1, 
+                  scale: 1,
+                  boxShadow: ["0 0 0px rgba(255, 215, 0, 0)", "0 0 20px rgba(255, 215, 0, 0.2)", "0 0 0px rgba(255, 215, 0, 0)"]
+                }}
                 viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.6, delay: i * 0.08 }}
-                whileHover={{ y: -5 }}
-                className="relative min-w-[280px] md:min-w-[320px] p-[1px] rounded-[20px] overflow-hidden group transition-all duration-300 snap-center"
+                transition={{ 
+                  delay: i * 0.1, 
+                  duration: 0.8,
+                  boxShadow: { duration: 1.2, delay: 0.4 + (i * 0.1) }
+                }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative min-w-[280px] md:min-w-[320px] p-[1.5px] rounded-[24px] overflow-hidden animate-golden-border group transition-all duration-300 snap-center"
               >
-                {/* Moving Red Glow Border */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_0%,transparent_40%,#FF2A2A_50%,transparent_60%,transparent_100%)] opacity-20 group-hover:opacity-100 transition-opacity duration-500"
-                />
-
-                <div className="relative bg-[#0A0A0A] p-5 rounded-[19px] border border-white/5 flex items-center gap-4 h-28 overflow-hidden z-10">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-accent relative z-10 border border-white/10 group-hover:border-accent/40 transition-all duration-500">
-                    <div className="absolute inset-0 bg-accent/10 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative z-20 drop-shadow-[0_0_5px_rgba(255,45,45,0.4)]">
+                <div className="relative bg-[#050505] p-5 rounded-[23px] border border-white/5 flex items-center gap-4 h-28 overflow-hidden z-10">
+                  <div className="absolute inset-0 bg-accent/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-accent relative z-10 border border-white/10 group-hover:bg-accent group-hover:text-white group-hover:border-accent/40 transition-all duration-500 shadow-xl">
+                    <div className="absolute inset-0 bg-accent/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative z-20 drop-shadow-[0_0_8px_rgba(255,45,45,0.4)]">
                       {feature.icon}
                     </div>
                   </div>
                   
                   <div className="relative z-10 flex-grow">
-                    <h4 className="text-xs font-display font-bold text-white/90 mb-1 tracking-tight group-hover:text-white transition-colors uppercase">{feature.title}</h4>
-                    <p className="text-white/30 text-[9px] font-medium leading-relaxed line-clamp-2 mb-2">{feature.desc}</p>
+                    <h4 className="text-[10px] font-display font-bold text-white/90 mb-1 tracking-wider group-hover:text-yellow-400 transition-colors uppercase">{feature.title}</h4>
+                    <p className="text-white/30 text-[9px] font-medium leading-relaxed line-clamp-2 mb-2 group-hover:text-white/50 transition-colors italic">{feature.desc}</p>
                     <button 
                       onClick={() => setSelectedFeature({ title: feature.title, desc: feature.desc })}
-                      className="flex items-center text-accent text-[8px] font-bold tracking-[0.2em] uppercase group-hover:gap-2 transition-all"
+                      className="flex items-center text-accent text-[8px] font-bold tracking-[0.2em] uppercase group-hover:text-white transition-all"
                     >
                       Explore <ChevronRight className="w-2.5 ml-1 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </div>
+
+                  <div className="absolute -bottom-1 -right-1 w-12 h-12 bg-yellow-400/5 blur-[20px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               </motion.div>
             ))}
